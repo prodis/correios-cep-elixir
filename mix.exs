@@ -2,6 +2,7 @@ defmodule Correios.CEP.MixProject do
   use Mix.Project
 
   @version "0.1.0"
+  @github_url "https://github.com/prodis/correios-cep-elixir"
 
   def project do
     [
@@ -43,7 +44,7 @@ defmodule Correios.CEP.MixProject do
       maintainers: ["Fernando Hamasaki de Amorim"],
       licenses: ["Apache 2.0"],
       links: %{
-        "GitHub" => "https://github.com/prodis/correios-cep-elixir",
+        "GitHub" => @github_url,
         "Vai Corinthians!" => "https://www.corinthians.com.br/assets/svg/logo.svg"
       }
     ]
@@ -54,7 +55,7 @@ defmodule Correios.CEP.MixProject do
       main: "readme",
       extras: ["README.md", "CHANGELOG.md"],
       source_ref: "v#{@version}",
-      source_url: "https://github.com/prodis/correios-cep-elixir",
+      source_url: @github_url,
       canonical: "http://hexdocs.pm/correios_cep"
     ]
   end
