@@ -14,23 +14,23 @@ defmodule Correios.CEP.Address do
 
   ## Examples
 
-     iex> Correios.CEP.Address.new(%{
-     ...>   street: 'Street',
-     ...>   neighborhood: 'Neighborhood',
-     ...>   complement: ' complement one',
-     ...>   complement2: 'complement two ',
-     ...>   city: 'City',
-     ...>   state: 'ST',
-     ...>   zipcode: '12345678'
-     ...> })
-     %Correios.CEP.Address{
-       city: "City",
-       complement: "complement one complement two",
-       neighborhood: "Neighborhood",
-       state: "ST",
-       street: "Street",
-       zipcode: "12345678"
-     }
+      iex> Correios.CEP.Address.new(%{
+      ...>   street: 'Street',
+      ...>   neighborhood: 'Neighborhood',
+      ...>   complement: ' complement one',
+      ...>   complement2: 'complement two ',
+      ...>   city: 'City',
+      ...>   state: 'ST',
+      ...>   zipcode: '12345678'
+      ...> })
+      %Correios.CEP.Address{
+        city: "City",
+        complement: "complement one complement two",
+        neighborhood: "Neighborhood",
+        state: "ST",
+        street: "Street",
+        zipcode: "12345678"
+      }
 
   """
   def new(%{

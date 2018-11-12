@@ -12,8 +12,8 @@ defmodule Correios.CEP.Error do
 
   ## Examples
 
-     iex> Correios.CEP.Error.new("Catastrofic error!")
-     %Correios.CEP.Error{reason: "Catastrofic error!"}
+      iex> Correios.CEP.Error.new("Catastrofic error!")
+      %Correios.CEP.Error{reason: "Catastrofic error!"}
 
   """
   def new(reason) do
@@ -25,8 +25,8 @@ defmodule Correios.CEP.Error do
 
   ## Examples
 
-     iex> Correios.CEP.Error.message(%Correios.CEP.Error{reason: "Catastrofic error!"})
-     "Catastrofic error!"
+      iex> Correios.CEP.Error.message(%Correios.CEP.Error{reason: "Catastrofic error!"})
+      "Catastrofic error!"
 
   """
   @impl true
