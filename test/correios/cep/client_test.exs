@@ -8,6 +8,11 @@ defmodule Correios.CEP.ClientTest do
     HTTPoison.start()
   end
 
+  setup do
+    ExVCR.Config.cassette_library_dir("test/fixture/vcr_cassettes")
+    :ok
+  end
+
   describe "request/1 when response is 200 OK" do
     test "returns OK and response body" do
       expected_response_body =

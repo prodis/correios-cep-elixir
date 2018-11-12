@@ -43,7 +43,7 @@ defmodule Correios.CEP.MixProject do
       maintainers: ["Fernando Hamasaki de Amorim"],
       licenses: ["Apache 2.0"],
       links: %{
-        "GitHub" => "https://github.com/prodis/correios-cep-elixir"
+        "GitHub" => "https://github.com/prodis/correios-cep-elixir",
         "Vai Corinthians!" => "https://www.corinthians.com.br/assets/svg/logo.svg"
       }
     ]
