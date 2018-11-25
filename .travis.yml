@@ -1,0 +1,23 @@
+language: elixir
+
+elixir:
+  - 1.7.0
+  - 1.7.1
+  - 1.7.2
+  - 1.7.3
+  - 1.7.4
+
+otp_release:
+  - 21.1
+
+env:
+  global:
+    - MIX_ENV=test
+
+script:
+  - mix compile
+  - mix format --check-formatted
+  - mix coveralls --trace
+  - mix credo
+
+sudo: false

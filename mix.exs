@@ -14,7 +14,14 @@ defmodule Correios.CEP.MixProject do
       deps: deps(),
       description: description(),
       package: package(),
-      docs: docs()
+      docs: docs(),
+      test_coverage: [tool: ExCoveralls],
+      preferred_cli_env: [
+        coveralls: :test,
+        "coveralls.detail": :test,
+        "coveralls.post": :test,
+        "coveralls.html": :test
+      ]
     ]
   end
 
@@ -28,6 +35,8 @@ defmodule Correios.CEP.MixProject do
     [
       {:httpoison, "~> 1.4"},
       {:sweet_xml, "~> 0.6.5"},
+      {:credo, "~> 1.0.0", only: [:dev, :test], runtime: false},
+      {:excoveralls, "~> 0.10", only: :test},
       {:ex_doc, "~> 0.19", only: :dev, runtime: false},
       {:exvcr, "~> 0.10", only: :test}
     ]
@@ -44,8 +53,7 @@ defmodule Correios.CEP.MixProject do
       maintainers: ["Fernando Hamasaki de Amorim"],
       licenses: ["Apache 2.0"],
       links: %{
-        "GitHub" => @github_url,
-        "Vai Corinthians!" => "https://www.corinthians.com.br/assets/svg/logo.svg"
+        "GitHub" => @github_url
       }
     ]
   end
