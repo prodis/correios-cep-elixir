@@ -17,7 +17,7 @@ env:
 script:
   - mix compile
   - mix format --check-formatted
-  - mix coveralls --trace
+  - mix coveralls.travis --trace
   - mix credo
 
 sudo: false

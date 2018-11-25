@@ -1,4 +1,11 @@
 # Correios CEP
+
+[![Hex.pm](https://img.shields.io/hexpm/v/correios_cep.svg)](https://hex.pm/packages/correios_cep)
+[![Docs](https://img.shields.io/badge/hex-docs-542581.svg)](https://hexdocs.pm/correios_cep)
+[![Build Status](https://travis-ci.org/prodis/correios-cep-elixir.svg?branch=master)](https://travis-ci.org/prodis/correios-cep-elixir)
+[![Coverage Status](https://coveralls.io/repos/github/prodis/correios-cep-elixir/badge.svg?branch=master)](https://coveralls.io/github/prodis/correios-cep-elixir?branch=master)
+[![License](https://img.shields.io/hexpm/l/correios_cep.svg)](LICENSE)
+
 Find Brazilian addresses by zip code, directly from Correios database. No HTML parsers.
 
 ## Installation
