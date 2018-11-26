@@ -3,7 +3,9 @@ defmodule Correios.CEP do
   Find Brazilian addresses by zipcode, directly from Correios database. No HTML parsers.
   """
 
-  alias Correios.CEP.{Client, Parser}
+  alias Correios.CEP.Parser
+
+  @client Application.get_env(:correios_cep, :client)
 
   @doc """
   Find address by a given zip code.
@@ -38,9 +40,9 @@ defmodule Correios.CEP do
       {:error, %Correios.CEP.Error{reason: "CEP NAO ENCONTRADO"}}
 
   """
-  def find_address(zipcode, client \\ Client) when is_binary(zipcode) do
+  def find_address(zipcode) when is_binary(zipcode) do
     zipcode
-    |> client.request()
+    |> @client.request()
     |> parse()
   end
 
@@ -49,6 +51,8 @@ defmodule Correios.CEP do
 
   @doc """
   Find address by a given zip code.
+
+  Similar to `find_address/1` except it will unwrap the error tuple and raise in case of errors.
 
   ## Examples
 
@@ -78,9 +82,9 @@ defmodule Correios.CEP do
       ** (Correios.CEP.Error) CEP NAO ENCONTRADO
 
   """
-  def find_address!(zipcode, client \\ Client) when is_binary(zipcode) do
+  def find_address!(zipcode) when is_binary(zipcode) do
     zipcode
-    |> find_address(client)
+    |> find_address
     |> case do
       {:ok, response} -> response
       {:error, error} -> raise(error)
