@@ -10,6 +10,7 @@ defmodule Correios.CEP.MixProject do
       name: "Correios CEP",
       version: @version,
       elixir: "~> 1.7",
+      elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       description: description(),
@@ -52,9 +53,7 @@ defmodule Correios.CEP.MixProject do
     [
       maintainers: ["Fernando Hamasaki de Amorim"],
       licenses: ["Apache 2.0"],
-      links: %{
-        "GitHub" => @github_url
-      }
+      links: %{"GitHub" => @github_url}
     ]
   end
 
@@ -67,4 +66,7 @@ defmodule Correios.CEP.MixProject do
       canonical: "http://hexdocs.pm/correios_cep"
     ]
   end
+
+  defp elixirc_paths(:test), do: ["lib", "test/support"]
+  defp elixirc_paths(_), do: ["lib"]
 end
