@@ -10,6 +10,13 @@ defmodule Correios.CEP do
   @doc """
   Find address by a given zip code.
 
+  Zip codes with and without "-" separator are accepted.
+
+  ## Options
+
+    * `connection_timeout`: timeout for establishing a TCP or SSL connection, in milliseconds. Default is 5000.
+    * `request_timeout`: timeout for receiving an HTTP response from the socket. Default is 5000.
+
   ## Examples
 
       iex> Correios.CEP.find_address("54250610")
@@ -34,15 +41,26 @@ defmodule Correios.CEP do
          zipcode: "54250610"
        }}
 
+      iex> Correios.CEP.find_address("54250-610", connection_timeout: 1000, request_timeout: 1000)
+      {:ok,
+       %Correios.CEP.Address{
+         city: "Jaboatão dos Guararapes",
+         complement: "",
+         neighborhood: "Cavaleiro",
+         state: "PE",
+         street: "Rua Fernando Amorim",
+         zipcode: "54250610"
+       }}
+
   When zip code is not found.
 
       iex> Correios.CEP.find_address("00000000")
       {:error, %Correios.CEP.Error{reason: "CEP NAO ENCONTRADO"}}
 
   """
-  def find_address(zipcode) when is_binary(zipcode) do
+  def find_address(zipcode, options \\ []) when is_binary(zipcode) and is_list(options) do
     zipcode
-    |> @client.request()
+    |> @client.request(options)
     |> parse()
   end
 
@@ -52,21 +70,11 @@ defmodule Correios.CEP do
   @doc """
   Find address by a given zip code.
 
-  Similar to `find_address/1` except it will unwrap the error tuple and raise in case of errors.
+  Similar to `find_address/2` except it will unwrap the error tuple and raise in case of errors.
 
   ## Examples
 
       iex> Correios.CEP.find_address!("54250610")
-      %Correios.CEP.Address{
-        city: "Jaboatão dos Guararapes",
-        complement: "",
-        neighborhood: "Cavaleiro",
-        state: "PE",
-        street: "Rua Fernando Amorim",
-        zipcode: "54250610"
-      }
-
-      iex> Correios.CEP.find_address!("54250-610")
       %Correios.CEP.Address{
         city: "Jaboatão dos Guararapes",
         complement: "",
@@ -82,9 +90,9 @@ defmodule Correios.CEP do
       ** (Correios.CEP.Error) CEP NAO ENCONTRADO
 
   """
-  def find_address!(zipcode) when is_binary(zipcode) do
+  def find_address!(zipcode, options \\ []) when is_binary(zipcode) and is_list(options) do
     zipcode
-    |> find_address
+    |> find_address(options)
     |> case do
       {:ok, response} -> response
       {:error, error} -> raise(error)

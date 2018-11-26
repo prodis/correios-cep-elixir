@@ -49,7 +49,10 @@ iex> Correios.CEP.find_address!("00000-000")
 ** (Correios.CEP.Error) CEP NAO ENCONTRADO
 ```
 
-Full documentation can be found at [https://hexdocs.pm/correios_cep](https://hexdocs.pm/correios_cep).
+## Options
+Options for timeout are supported.
+
+Consult the full documentation at [https://hexdocs.pm/correios_cep](https://hexdocs.pm/correios_cep).
 
 ## Contributing
 

@@ -2,7 +2,7 @@ defmodule Correios.CEP.Client do
   @moduledoc false
 
   @url "https://apps.correios.com.br/SigepMasterJPA/AtendeClienteService/AtendeCliente"
-  @headers [{"content-type", "text/xml; charset=utf-8"}]
+  @headers [{"Content-Type", "text/xml; charset=utf-8"}]
 
   @body_template """
   <?xml version="1.0" encoding="UTF-8"?>
@@ -16,9 +16,15 @@ defmodule Correios.CEP.Client do
   </soapenv:Envelope>
   """
 
-  def request(zipcode) do
+  # Timeouts in miliseconds
+  @options_config [
+    %{cep: :connection_timeout, httpoison: :timeout, default: 5000},
+    %{cep: :request_timeout, httpoison: :recv_timeout, default: 5000}
+  ]
+
+  def request(zipcode, options) do
     @url
-    |> HTTPoison.post(build_body(zipcode), @headers)
+    |> HTTPoison.post(body(zipcode), @headers, httpoison_options(options))
     |> response()
   end
 
@@ -26,7 +32,13 @@ defmodule Correios.CEP.Client do
   defp response({:ok, %{body: body}}), do: {:error, body}
   defp response({:error, %{reason: reason}}), do: {:error, reason}
 
-  defp build_body(zipcode) do
+  defp body(zipcode) do
     EEx.eval_string(@body_template, zipcode: zipcode)
+  end
+
+  defp httpoison_options(options) do
+    Enum.map(@options_config, fn %{cep: cep, httpoison: httpoison, default: default} ->
+      {httpoison, Keyword.get(options, cep, default)}
+    end)
   end
 end

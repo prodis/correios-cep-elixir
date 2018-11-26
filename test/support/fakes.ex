@@ -1,5 +1,5 @@
 defmodule Correios.CEP.FakeClient do
-  def request("54250-610") do
+  def request("54250-610", _options) do
     response = """
     <return>
       <bairro>Cavaleiro</bairro>
@@ -13,7 +13,7 @@ defmodule Correios.CEP.FakeClient do
     {:ok, response}
   end
 
-  def request("00000-000") do
+  def request("00000-000", _options) do
     {:error, "<faultstring>CEP NAO ENCONTRADO</faultstring>"}
   end
 end
