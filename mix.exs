@@ -53,9 +53,7 @@ defmodule Correios.CEP.MixProject do
     [
       maintainers: ["Fernando Hamasaki de Amorim"],
       licenses: ["Apache 2.0"],
-      links: %{
-        "GitHub" => @github_url
-      }
+      links: %{"GitHub" => @github_url}
     ]
   end
 
