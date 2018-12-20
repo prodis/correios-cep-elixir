@@ -19,11 +19,14 @@ defmodule Correios.CEP.Parser do
                    into: [],
                    do: {new_key, ~x"./#{old_key}/text()"}
 
+  @spec parse_response(String.t()) :: Address.t()
   def parse_response(response) when is_binary(response) do
     response
     |> xpath(~x"//return", @xmap_params)
     |> Address.new()
   end
+
+  @spec parse_error(String.t() | atom()) :: Error.t()
 
   def parse_error(response) when is_atom(response) do
     Error.new(response)
