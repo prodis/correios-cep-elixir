@@ -5,6 +5,8 @@ defmodule Correios.CEP.Error do
 
   @enforce_keys [:reason]
 
+  @type t() :: %__MODULE__{reason: String.t()}
+
   defexception @enforce_keys
 
   @doc """
@@ -15,7 +17,11 @@ defmodule Correios.CEP.Error do
       iex> Correios.CEP.Error.new("Catastrofic error!")
       %Correios.CEP.Error{reason: "Catastrofic error!"}
 
+      iex> Correios.CEP.Error.new(:someerror)
+      %Correios.CEP.Error{reason: "someerror"}
+
   """
+  @spec new(String.t() | atom()) :: t()
   def new(reason) do
     %__MODULE__{reason: to_string(reason)}
   end

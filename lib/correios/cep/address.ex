@@ -7,6 +7,15 @@ defmodule Correios.CEP.Address do
 
   defstruct @enforce_keys
 
+  @type t() :: %__MODULE__{
+          street: String.t(),
+          complement: String.t(),
+          neighborhood: String.t(),
+          city: String.t(),
+          state: String.t(),
+          zipcode: String.t()
+        }
+
   @doc """
   Create a new Correios.CEP.Address struct with given values.
 
@@ -33,6 +42,7 @@ defmodule Correios.CEP.Address do
       }
 
   """
+  @spec new(map()) :: t()
   def new(%{
         street: street,
         complement: complement,
