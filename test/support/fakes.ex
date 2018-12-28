@@ -1,7 +1,9 @@
 defmodule Correios.CEP.FakeClient do
   @moduledoc false
 
-  def request("54250-610", _options) do
+  def request("54250-610", options), do: request("54250610", options)
+
+  def request("54250610", _options) do
     response = """
     <return>
       <bairro>Cavaleiro</bairro>
