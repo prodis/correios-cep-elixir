@@ -17,26 +17,22 @@ defmodule Correios.CEPTest do
     reason: "CEP NAO ENCONTRADO"
   }
 
-  describe "find_address/1 when zip code is found" do
-    test "returns address" do
+  describe "find_address/1" do
+    test "when zip code is found returns address" do
       assert Subject.find_address("54250-610") == {:ok, @address}
     end
-  end
 
-  describe "find_address/1 when zip code is not found" do
-    test "returns error" do
+    test "when zip code is not found returns error" do
       assert Subject.find_address("00000-000") == {:error, @error}
     end
   end
 
-  describe "find_address!/1 when zip code is found" do
-    test "returns address" do
+  describe "find_address!/1" do
+    test "when zip code is found returns address" do
       assert Subject.find_address!("54250-610") == @address
     end
-  end
 
-  describe "find_address!/1 when zip code is not found" do
-    test "raises error" do
+    test "when zip code is not found raises error" do
       assert_raise Error, "CEP NAO ENCONTRADO", fn ->
         Subject.find_address!("00000-000")
       end
