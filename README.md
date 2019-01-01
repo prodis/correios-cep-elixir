@@ -6,6 +6,8 @@
 [![Coverage Status](https://coveralls.io/repos/github/prodis/correios-cep-elixir/badge.svg?branch=master)](https://coveralls.io/github/prodis/correios-cep-elixir?branch=master)
 [![License](https://img.shields.io/hexpm/l/correios_cep.svg)](LICENSE)
 
+![Correios Logo](http://prodis.net.br/images/ruby/2015/correios_logo.png)
+
 Find Brazilian addresses by zip code, directly from Correios database. No HTML parsers.
 
 ## Installation
@@ -14,7 +16,7 @@ The package can be installed by adding `correios_cep` to your list of dependenci
 
 ```elixir
 def deps do
-  [{:correios_cep, "~> 0.1"}]
+  [{:correios_cep, "~> 0.3"}]
 end
 ```
 
