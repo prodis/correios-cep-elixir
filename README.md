@@ -50,9 +50,9 @@ iex> Correios.CEP.find_address!("00000-000")
 ```
 
 ## Options
-Options for timeout are supported.
+Options for timeout are supported. Refer to `Correios.CEP.find_address/2` to see all available options.
 
-Consult the full documentation at [https://hexdocs.pm/correios_cep](https://hexdocs.pm/correios_cep).
+The full documentation is available at [https://hexdocs.pm/correios_cep](https://hexdocs.pm/correios_cep).
 
 ## Contributing
 

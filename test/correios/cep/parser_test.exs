@@ -36,14 +36,12 @@ defmodule Correios.CEP.ParserTest do
     end
   end
 
-  describe "parse_error/1 when error is atom" do
-    test "returns error" do
+  describe "parse_error/1" do
+    test "when error is atom returns error" do
       assert Subject.parse_error(:timeout) == %Error{reason: "timeout"}
     end
-  end
 
-  describe "parse_error/1 when error is binary" do
-    test "returns error" do
+    test "when error is binary returns error" do
       response = """
       <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
         <soap:Body>
