@@ -15,6 +15,16 @@ defmodule Correios.CEPTest do
     zipcode: "54250610"
   }
 
+  @invalid_zipcodes ~w(
+    1234567
+    123456789
+    1234-5678
+    12345-6789
+    1234-567
+    abcedfgh
+    abced-fgh
+  )
+
   @invalide_format_error %Error{
     reason: "zipcode in invalid format"
   }
@@ -37,15 +47,7 @@ defmodule Correios.CEPTest do
     end
 
     test "when zip code is not valid returns invalid format error" do
-      ~w(
-        1234567
-        123456789
-        1234-5678
-        12345-6789
-        1234-567
-        abcedfgh
-        abced-fgh
-      )
+      @invalid_zipcodes
       |> Enum.each(fn zipcode ->
         assert Subject.find_address(zipcode) == {:error, @invalide_format_error}
       end)
@@ -74,15 +76,7 @@ defmodule Correios.CEPTest do
     end
 
     test "when zip code is not valid returns invalid format error" do
-      ~w(
-        1234567
-        123456789
-        1234-5678
-        12345-6789
-        1234-567
-        abcedfgh
-        abced-fgh
-      )
+      @invalid_zipcodes
       |> Enum.each(fn zipcode ->
         assert_raise Error, "zipcode in invalid format", fn ->
           Subject.find_address!(zipcode)
