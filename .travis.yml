@@ -1,18 +1,19 @@
 language: elixir
 
+elixir:
+  - 1.10
+  - 1.9
+  - 1.8
+  - 1.7
+otp_release:
+  - 20.0
+  - 21.0
+  - 22.0
+
 jobs:
-  include:
+  exclude:
     - elixir: 1.10
-      otp_release: 22.3
-
-    - elixir: 1.9
-      otp_release: 22.0
-
-    - elixir: 1.8
-      otp_release: 21.3
-
-    - elixir: 1.7
-      otp_release: 21.3
+      otp_release: 20.0
 
 install:
   - mix local.hex --force
