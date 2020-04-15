@@ -22,7 +22,8 @@ defmodule Correios.CEP.MixProject do
         coveralls: :test,
         "coveralls.detail": :test,
         "coveralls.post": :test,
-        "coveralls.html": :test
+        "coveralls.html": :test,
+        "coveralls.travis": :test
       ]
     ]
   end
@@ -35,19 +36,18 @@ defmodule Correios.CEP.MixProject do
 
   defp deps do
     [
-      {:httpoison, "~> 1.4"},
-      {:sweet_xml, "~> 0.6.5"},
+      # Common
+      {:httpoison, "~> 1.6"},
+      {:sweet_xml, "~> 0.6"},
 
-      # Dev
-      {:ex_doc, "~> 0.19", only: :dev, runtime: false},
+      # Devlopment
+      {:credo, "~> 1.3", only: :dev, runtime: false},
+      {:ex_doc, "~> 0.21", only: :dev, runtime: false},
+      {:dialyxir, "~> 1.0", only: :dev, runtime: false},
 
       # Test
       {:exvcr, "~> 0.10", only: :test},
-
-      # Dev and Test
-      {:credo, "~> 1.0.0", only: [:dev, :test], runtime: false},
-      {:dialyxir, "~> 0.5", only: [:dev, :test], runtime: false},
-      {:excoveralls, "~> 0.10", only: :test}
+      {:excoveralls, "~> 0.12", only: :test}
     ]
   end
 
@@ -59,12 +59,13 @@ defmodule Correios.CEP.MixProject do
 
   defp dialyzer do
     [
-      ignore_warnings: "dialyzer.ignore"
+      plt_file: {:no_warn, "priv/plts/dialyzer.plt"}
     ]
   end
 
   defp package do
     [
+      files: ~w(lib mix.exs README.md CHANGELOG.md LICENSE),
       maintainers: ["Fernando Hamasaki de Amorim"],
       licenses: ["Apache 2.0"],
       links: %{"GitHub" => @github_url}
@@ -74,7 +75,7 @@ defmodule Correios.CEP.MixProject do
   defp docs() do
     [
       main: "readme",
-      extras: ["README.md", "CHANGELOG.md"],
+      extras: ~w(README.md CHANGELOG.md),
       source_ref: "v#{@version}",
       source_url: @github_url,
       canonical: "http://hexdocs.pm/correios_cep"
