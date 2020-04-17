@@ -6,8 +6,6 @@ defmodule Correios.CEP.ClientTest do
   alias Correios.CEP.Test.Fixture
   alias Plug.Conn
 
-  # https://gitlab.com/findhotel/bofh-providers-gar/-/blob/master/test/client/http_test.exs
-
   setup do
     bypass = Bypass.open()
     options = [url: "http://localhost:#{bypass.port}/correios/cep"]
@@ -42,7 +40,7 @@ defmodule Correios.CEP.ClientTest do
     } do
       Bypass.down(bypass)
 
-      assert Subject.request("54250-610", options) == {:error, ":econnrefused"}
+      assert Subject.request("54250-610", options) == {:error, :econnrefused}
     end
   end
 

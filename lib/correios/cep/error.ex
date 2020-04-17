@@ -10,31 +10,41 @@ defmodule Correios.CEP.Error do
   defexception @enforce_keys
 
   @doc """
-  Create a new Correios.CEP.Error exception.
+  Creates a new `#{inspect(__MODULE__)}` exception.
 
   ## Examples
 
-      iex> Correios.CEP.Error.new("Catastrofic error!")
-      %Correios.CEP.Error{reason: "Catastrofic error!"}
+      iex> #{inspect(__MODULE__)}.new("Catastrophic error!")
+      %#{inspect(__MODULE__)}{reason: "Catastrophic error!"}
 
-      iex> Correios.CEP.Error.new(:someerror)
-      %Correios.CEP.Error{reason: "someerror"}
+      iex> #{inspect(__MODULE__)}.new('Catastrophic error!')
+      %#{inspect(__MODULE__)}{reason: "Catastrophic error!"}
+
+      iex> #{inspect(__MODULE__)}.new(:some_error)
+      %#{inspect(__MODULE__)}{reason: "some_error"}
+
+      iex> #{inspect(__MODULE__)}.new(%{a: 123})
+      %#{inspect(__MODULE__)}{reason: "%{a: 123}"}
 
   """
-  @spec new(String.t() | atom()) :: t()
-  def new(reason) do
-    %__MODULE__{reason: to_string(reason)}
-  end
+  @spec new(any()) :: t()
+  def new(reason), do: %__MODULE__{reason: reason_to_string(reason)}
+
+  @spec reason_to_string(any()) :: String.t()
+  defp reason_to_string(reason) when is_binary(reason), do: reason
+  defp reason_to_string(reason) when is_atom(reason) or is_list(reason), do: to_string(reason)
+  defp reason_to_string(reason), do: inspect(reason)
 
   @doc """
   Returns the reason message of the exception.
 
   ## Examples
 
-      iex> Correios.CEP.Error.message(%Correios.CEP.Error{reason: "Catastrofic error!"})
-      "Catastrofic error!"
+      iex> error = %#{inspect(__MODULE__)}{reason: "Catastrophic error!"}
+      ...> #{inspect(__MODULE__)}.message(error)
+      "Catastrophic error!"
 
   """
   @impl true
-  def message(%__MODULE__{reason: reason}), do: to_string(reason)
+  def message(%__MODULE__{reason: reason}), do: reason
 end

@@ -5,7 +5,7 @@ defmodule Correios.CEP.Client do
 
   alias HTTPoison.{Error, Response}
 
-  @type t :: {:ok, String.t()} | {:error, String.t()}
+  @type t :: {:ok, String.t()} | {:error, any()}
 
   @default_url "https://apps.correios.com.br/SigepMasterJPA/AtendeClienteService/AtendeCliente"
 
@@ -24,6 +24,9 @@ defmodule Correios.CEP.Client do
 
       #{inspect(__MODULE__)}.request("54250-610", [])
       {:error, "..."}
+
+      #{inspect(__MODULE__)}.request("54250-610", [])
+      {:error, :some_error}
 
   """
   @spec request(String.t(), keyword()) :: t()
@@ -67,10 +70,5 @@ defmodule Correios.CEP.Client do
   @spec handle_response({:ok, Response.t()} | {:error, Error.t()}) :: t()
   defp handle_response({:ok, %Response{status_code: 200, body: body}}), do: {:ok, body}
   defp handle_response({:ok, %Response{body: body}}), do: {:error, body}
-
-  defp handle_response({:error, %Error{reason: reason}}) when is_binary(reason),
-    do: {:error, reason}
-
-  defp handle_response({:error, %Error{reason: reason}}),
-    do: {:error, inspect(reason)}
+  defp handle_response({:error, %Error{reason: reason}}), do: {:error, reason}
 end
