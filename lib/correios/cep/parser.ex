@@ -1,11 +1,13 @@
 defmodule Correios.CEP.Parser do
-  @moduledoc false
-
-  import SweetXml
+  @moduledoc """
+  Parser for Correios API responses.
+  """
 
   alias Correios.CEP.{Address, Error}
 
-  @address_map %{
+  import SweetXml, only: [sigil_x: 2, xpath: 2, xpath: 3]
+
+  @address_map [
     street: "end",
     complement: "complemento",
     complement2: "complemento2",
@@ -13,12 +15,21 @@ defmodule Correios.CEP.Parser do
     city: "cidade",
     state: "uf",
     zipcode: "cep"
-  }
+  ]
 
   @xmap_params for {new_key, old_key} <- @address_map,
                    into: [],
                    do: {new_key, ~x"./#{old_key}/text()"}
 
+  @doc """
+  Parses a successful Correios API response body to `#{inspect(Address)}` struct.
+
+  ## Examples
+
+      iex> #{inspect(__MODULE__)}.parse_response(response_body)
+      %#{inspect(Address)}{ ... }
+
+  """
   @spec parse_response(String.t()) :: Address.t()
   def parse_response(response) when is_binary(response) do
     response
@@ -26,15 +37,24 @@ defmodule Correios.CEP.Parser do
     |> Address.new()
   end
 
-  @spec parse_error(String.t() | atom()) :: Error.t()
+  @doc """
+  Parses a Correios API response error to `#{inspect(Error)}` struct.
 
-  def parse_error(response) when is_atom(response) do
-    Error.new(response)
-  end
+  ## Examples
 
+      iex> #{inspect(__MODULE__)}.parse_error(response_body)
+      %#{inspect(Error)}{ ... }
+
+      iex> #{inspect(__MODULE__)}.parse_error(:timeout)
+      %#{inspect(Error)}{reason: "timeout"}
+
+  """
+  @spec parse_error(any()) :: Error.t()
   def parse_error(response) when is_binary(response) do
     response
     |> xpath(~x"//faultstring/text()")
     |> Error.new()
   end
+
+  def parse_error(response), do: Error.new(response)
 end

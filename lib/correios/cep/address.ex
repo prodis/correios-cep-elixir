@@ -15,15 +15,17 @@ defmodule Correios.CEP.Address do
           state: String.t(),
           zipcode: String.t()
         }
+  @typep complement :: charlist() | nil
 
   @doc """
-  Create a new Correios.CEP.Address struct with given values.
+  Creates a new `#{inspect(__MODULE__)}` struct with the given values.
 
-  Key values will be converted to string, and complement and complement2 keys will be joined in a single complement key.
+  The values will be converted to string, and `complement` and `complement2` keys will be joined
+  into the `complement` field.
 
   ## Examples
 
-      iex> Correios.CEP.Address.new(%{
+      iex> #{inspect(__MODULE__)}.new(%{
       ...>   street: 'Street',
       ...>   neighborhood: 'Neighborhood',
       ...>   complement: ' complement one',
@@ -32,7 +34,7 @@ defmodule Correios.CEP.Address do
       ...>   state: 'ST',
       ...>   zipcode: '12345678'
       ...> })
-      %Correios.CEP.Address{
+      %#{inspect(__MODULE__)}{
         city: "City",
         complement: "complement one complement two",
         neighborhood: "Neighborhood",
@@ -45,7 +47,7 @@ defmodule Correios.CEP.Address do
   @spec new(map()) :: t()
   def new(%{
         street: street,
-        complement: complement,
+        complement: complement1,
         complement2: complement2,
         neighborhood: neighborhood,
         city: city,
@@ -58,7 +60,14 @@ defmodule Correios.CEP.Address do
       city: to_string(city),
       state: to_string(state),
       zipcode: to_string(zipcode),
-      complement: "#{complement} #{complement2}" |> String.trim()
+      complement: build_complement(complement1, complement2)
     }
+  end
+
+  @spec build_complement(complement(), complement()) :: String.t()
+  defp build_complement(complement1, complement2) do
+    [complement1, complement2]
+    |> Enum.join(" ")
+    |> String.trim()
   end
 end

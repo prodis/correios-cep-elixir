@@ -1,4 +1,4 @@
-defmodule Correios.CEP.FakeClient do
+defmodule Correios.CEP.ClientFake do
   @moduledoc false
 
   def request("54250-610", options), do: request("54250610", options)

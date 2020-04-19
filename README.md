@@ -8,7 +8,7 @@
 
 ![Correios Logo](http://prodis.net.br/images/ruby/2015/correios_logo.png)
 
-Find Brazilian addresses by zip code, directly from Correios database. No HTML parsers.
+Find Brazilian addresses by zip code, directly from Correios API. No HTML parsers.
 
 ## Installation
 
@@ -16,7 +16,9 @@ The package can be installed by adding `correios_cep` to your list of dependenci
 
 ```elixir
 def deps do
-  [{:correios_cep, "~> 0.3"}]
+  [
+    {:correios_cep, "~> 0.3.0"}
+  ]
 end
 ```
 
@@ -37,6 +39,17 @@ iex> Correios.CEP.find_address("54250610")
 iex> Correios.CEP.find_address("00000-000")
 {:error, %Correios.CEP.Error{reason: "CEP NAO ENCONTRADO"}}
 
+iex> Correios.CEP.find_address("54250610", request_timeout: 3000)
+{:ok,
+ %Correios.CEP.Address{
+   city: "Jaboatão dos Guararapes",
+   complement: "",
+   neighborhood: "Cavaleiro",
+   state: "PE",
+   street: "Rua Fernando Amorim",
+   zipcode: "54250610"
+ }}
+
 iex> Correios.CEP.find_address!("54250-610")
 %Correios.CEP.Address{
   city: "Jaboatão dos Guararapes",
@@ -51,8 +64,12 @@ iex> Correios.CEP.find_address!("00000-000")
 ** (Correios.CEP.Error) CEP NAO ENCONTRADO
 ```
 
-## Options
-Options for timeout are supported. Refer to `Correios.CEP.find_address/2` to see all available options.
+### Options
+Options for timeouts and URL are supported. Check the
+[`Correios.CEP.find_address/2`](https://hexdocs.pm/correios_cep/Correios.CEP.html#find_address/2)
+documentation to see all available options as well as their default values.
+
+## Documentation
 
 The full documentation is available at [https://hexdocs.pm/correios_cep](https://hexdocs.pm/correios_cep).
 
@@ -63,6 +80,8 @@ See the [contributing guide](https://github.com/prodis/correios-cep-elixir/blob/
 ## License
 
 Correios CEP is released under the Apache 2.0 License. See the [LICENSE](https://github.com/prodis/correios-cep-elixir/blob/master/LICENSE) file.
+
+Copyright © 2018-2020 Fernando Hamasaki de Amorim
 
 ## Author
 
