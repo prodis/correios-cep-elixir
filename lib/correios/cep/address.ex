@@ -18,7 +18,7 @@ defmodule Correios.CEP.Address do
   @typep complement :: charlist() | nil
 
   @doc """
-  Create a new `#{inspect(__MODULE__)}` struct with the given values.
+  Creates a new `#{inspect(__MODULE__)}` struct with the given values.
 
   The values will be converted to string, and `complement` and `complement2` keys will be joined
   into the `complement` field.

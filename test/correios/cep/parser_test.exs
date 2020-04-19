@@ -2,26 +2,13 @@ defmodule Correios.CEP.ParserTest do
   use ExUnit.Case, async: true
 
   alias Correios.CEP.Parser, as: Subject
+
   alias Correios.CEP.{Address, Error}
+  alias Correios.CEP.Test.Fixture
 
   describe "parse_response/1" do
-    test "returns address" do
-      response = """
-      <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
-        <soap:Body>
-          <ns2:consultaCEPResponse xmlns:ns2="http://cliente.bean.master.sigep.bsb.correios.com.br/">
-            <return>
-              <bairro>Cavaleiro</bairro>
-              <cep>54250610</cep>
-              <cidade>Jaboatão dos Guararapes</cidade>
-              <complemento2></complemento2>
-              <end>Rua Fernando Amorim</end>
-              <uf>PE</uf>
-            </return>
-          </ns2:consultaCEPResponse>
-        </soap:Body>
-      </soap:Envelope>
-      """
+    test "returns the parsed address" do
+      response = Fixture.response_body_ok()
 
       expected_address = %Address{
         city: "Jaboatão dos Guararapes",
@@ -37,26 +24,16 @@ defmodule Correios.CEP.ParserTest do
   end
 
   describe "parse_error/1" do
-    test "when error is atom returns error" do
-      assert Subject.parse_error(:timeout) == %Error{reason: "timeout"}
+    test "returns the parsed error" do
+      response = Fixture.response_body_error()
+
+      expected_error = %Error{reason: "CEP NAO ENCONTRADO"}
+
+      assert Subject.parse_error(response) == expected_error
     end
 
-    test "when error is binary returns error" do
-      response = """
-      <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
-        <soap:Body>
-          <soap:Fault>
-            <faultcode>soap:Server</faultcode>
-            <faultstring>CEP NAO ENCONTRADO</faultstring>
-            <detail>
-              <ns2:SigepClienteException xmlns:ns2="http://cliente.bean.master.sigep.bsb.correios.com.br/">CEP NAO ENCONTRADO</ns2:SigepClienteException>
-            </detail>
-          </soap:Fault>
-        </soap:Body>
-      </soap:Envelope>
-      """
-
-      assert Subject.parse_error(response) == %Error{reason: "CEP NAO ENCONTRADO"}
+    test "when error is an atom, returns the parsed error" do
+      assert Subject.parse_error(:timeout) == %Error{reason: "timeout"}
     end
   end
 end
