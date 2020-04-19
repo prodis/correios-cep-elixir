@@ -1,13 +1,15 @@
 defmodule Correios.CEP.MixProject do
   use Mix.Project
 
+  @app :correios_cep
+  @name "Correios CEP"
+  @repo "https://github.com/prodis/correios-cep-elixir"
   @version "0.3.0"
-  @github_url "https://github.com/prodis/correios-cep-elixir"
 
   def project do
     [
-      app: :correios_cep,
-      name: "Correios CEP",
+      app: @app,
+      name: @name,
       version: @version,
       elixir: "~> 1.7",
       elixirc_paths: elixirc_paths(Mix.env()),
@@ -53,7 +55,7 @@ defmodule Correios.CEP.MixProject do
 
   defp description do
     """
-    Find Brazilian addresses by zip code, directly from Correios database. No HTML parsers.
+    Find Brazilian addresses by zip code, directly from Correios API. No HTML parsers.
     """
   end
 
@@ -68,7 +70,7 @@ defmodule Correios.CEP.MixProject do
       files: ~w(lib mix.exs README.md CHANGELOG.md LICENSE),
       maintainers: ["Fernando Hamasaki de Amorim"],
       licenses: ["Apache 2.0"],
-      links: %{"GitHub" => @github_url}
+      links: %{"GitHub" => @repo}
     ]
   end
 
@@ -77,7 +79,7 @@ defmodule Correios.CEP.MixProject do
       main: "readme",
       extras: ~w(README.md CHANGELOG.md),
       source_ref: "v#{@version}",
-      source_url: @github_url,
+      source_url: @repo,
       canonical: "http://hexdocs.pm/correios_cep"
     ]
   end
