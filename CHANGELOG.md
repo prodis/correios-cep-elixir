@@ -2,8 +2,19 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+### Added
+- Correios API full URL in options.
+- Missing code documentation and typespecs.
+- Makefile.
 
-## [0.3.0] - 2020-04-13
+### Changed
+- General update and refactoring.
+
+### Fixed
+- Remove dependency from config/config.exs. [Issue #15](https://github.com/prodis/correios-cep-elixir/issues/15)
+
+## [0.3.0] - 2010-01-01
+### Added
 - Validate zip code. [Issue #11](https://github.com/prodis/correios-cep-elixir/issues/11)
 - Typespecs and Dialyzer. [Issue #1](https://github.com/prodis/correios-cep-elixir/issues/1)
 
