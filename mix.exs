@@ -4,7 +4,7 @@ defmodule Correios.CEP.MixProject do
   @app :correios_cep
   @name "Correios CEP"
   @repo "https://github.com/prodis/correios-cep-elixir"
-  @version "0.3.0"
+  @version "0.4.0"
 
   def project do
     [

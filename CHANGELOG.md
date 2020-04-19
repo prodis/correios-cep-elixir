@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+
+## [0.4.0] - 2020-04-19
 ### Added
 - Correios API full URL in options.
 - Missing code documentation and typespecs.
@@ -26,7 +28,8 @@ All notable changes to this project will be documented in this file.
 ### Added
 - Initial release.
 
-[Unreleased]: https://github.com/prodis/correios-cep-elixir/compare/v0.3.0...master
+[Unreleased]: https://github.com/prodis/correios-cep-elixir/compare/0.4.0...master
+[0.4.0]: https://github.com/prodis/correios-cep-elixir/compare/v0.3.0...0.4.0
 [0.3.0]: https://github.com/prodis/correios-cep-elixir/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/prodis/correios-cep-elixir/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/prodis/correios-cep-elixir/compare/69f7fa4...v0.1.0
