@@ -42,13 +42,20 @@ defmodule Correios.CEP.MixProject do
       {:httpoison, "~> 1.6"},
       {:sweet_xml, "~> 0.6"},
 
+      # HTTP clients
+      {:castore, "~> 0.1.0"},
+      {:mint, "~> 1.0"},
+      {:ibrowse, "~> 4.4"},
+      {:gun, git: "https://github.com/ninenines/gun.git", tag: "2.0.0-pre.2"},
+
       # Development
       {:credo, "~> 1.3", only: :dev, runtime: false},
       {:dialyxir, "~> 1.0", only: :dev, runtime: false},
       {:ex_doc, "~> 0.21", only: :dev, runtime: false},
 
       # Test
-      {:bypass, "~> 1.0", only: :test},
+      # cowlib version required by Bypass conflicts with Gun.
+      # {:bypass, "~> 1.0", only: :test},
       {:excoveralls, "~> 0.12", only: :test}
     ]
   end
