@@ -1,19 +1,33 @@
 language: elixir
 
+services:
+  - docker
+
+env:
+  - DOCKER_COMPOSE_VERSION=1.25.5
+
 elixir:
   - 1.10
   - 1.9
   - 1.8
   - 1.7
 otp_release:
-  - 20.0
-  - 21.0
   - 22.0
+  - 21.0
+  - 20.0
 
 jobs:
   exclude:
     - elixir: 1.10
       otp_release: 20.0
+
+before_install:
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+  - docker-compose --version
+  - docker-compose build
 
 install:
   - mix local.hex --force
@@ -21,15 +35,31 @@ install:
   - mix deps.get
 
 before_script:
-  - mix compile
+  # - mix compile
   - MIX_ENV=test mix compile
 
 script:
-  - mix format --check-formatted
-  - mix credo --strict
-  - mix dialyzer
-  - mix test
-  - mix coveralls.travis --trace
+  - docker-compose up --detach
+  # HTTPoison and hackney conflicts proxy connection and return 404 Not Found when running all the tests together.
+  - mix test test/integration/httpoison_test.exs:8 --trace --seed 0
+  - mix test test/integration/httpoison_test.exs:34 --trace --seed 0
+  - mix test test/integration/hackney_test.exs:8 --trace --seed 0
+  - mix test test/integration/hackney_test.exs:46 --trace --seed 0
+  - mix test test/integration/mint_test.exs --trace --seed 0
+  - mix test test/integration/httpc_test.exs --trace --seed 0
+  - mix test test/integration/ibrowse_test.exs --trace --seed 0
+  - mix test test/integration/gun_test.exs --trace --seed 0
+  - mix test test/integration/curl_test.exs --trace --seed 0
+
+after_script:
+  - docker-compose down
+
+# script:
+  # - mix format --check-formatted
+  # - mix credo --strict
+  # - mix dialyzer
+  # - mix test
+  # - mix coveralls.travis --trace
 
 cache:
   directories:
