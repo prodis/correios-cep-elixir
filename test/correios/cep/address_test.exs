@@ -9,9 +9,9 @@ defmodule Correios.CEP.AddressTest do
     setup do
       params = %{
         street: 'Street',
-        neighborhood: 'Neighborhood',
         complement: ' complement one',
         complement2: nil,
+        neighborhood: 'Neighborhood',
         city: 'City',
         state: 'ST',
         zipcode: '12345678'
@@ -23,8 +23,8 @@ defmodule Correios.CEP.AddressTest do
     test "creates a new address", %{params: params} do
       expected_address = %Subject{
         street: "Street",
-        neighborhood: "Neighborhood",
         complement: "complement one",
+        neighborhood: "Neighborhood",
         city: "City",
         state: "ST",
         zipcode: "12345678"
@@ -38,8 +38,8 @@ defmodule Correios.CEP.AddressTest do
 
       expected_address = %Subject{
         street: "Street",
-        neighborhood: "Neighborhood",
         complement: "complement one complement two",
+        neighborhood: "Neighborhood",
         city: "City",
         state: "ST",
         zipcode: "12345678"

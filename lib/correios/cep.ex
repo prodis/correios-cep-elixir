@@ -87,7 +87,15 @@ defmodule Correios.CEP do
   defp client, do: Application.get_env(:correios_cep, :client) || Client
 
   @spec parse(Client.t()) :: t()
-  defp parse({:ok, response}), do: {:ok, Parser.parse_response(response)}
+  defp parse({:ok, response}) do
+    response
+    |> Parser.parse_ok()
+    |> case do
+      %Address{} = address -> {:ok, address}
+      %Error{} = error -> {:error, error}
+    end
+  end
+
   defp parse({:error, error}), do: {:error, Parser.parse_error(error)}
 
   @doc """

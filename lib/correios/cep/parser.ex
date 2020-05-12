@@ -3,9 +3,9 @@ defmodule Correios.CEP.Parser do
   Parser for Correios API responses.
   """
 
-  alias Correios.CEP.{Address, Error}
-
   import SweetXml, only: [sigil_x: 2, xpath: 2, xpath: 3]
+
+  alias Correios.CEP.{Address, Error}
 
   @address_map [
     street: "end",
@@ -24,18 +24,27 @@ defmodule Correios.CEP.Parser do
   @doc """
   Parses a successful Correios API response body to `#{inspect(Address)}` struct.
 
+  When the response body is empty, returns a not found `#{inspect(Error)}` struct.
+
   ## Examples
 
-      iex> #{inspect(__MODULE__)}.parse_response(response_body)
+      iex> #{inspect(__MODULE__)}.parse_ok(response_body)
       %#{inspect(Address)}{ ... }
 
+      iex> #{inspect(__MODULE__)}.parse_ok(response_body)
+      %#{inspect(Error)}{reason: "CEP NAO ENCONTRADO"}
+
   """
-  @spec parse_response(String.t()) :: Address.t()
-  def parse_response(response) when is_binary(response) do
+  @spec parse_ok(String.t()) :: Address.t() | Error.t()
+  def parse_ok(response) when is_binary(response) do
     response
-    |> xpath(~x"//return", @xmap_params)
-    |> Address.new()
+    |> xpath(~x"//return"o, @xmap_params)
+    |> build_response()
   end
+
+  @spec build_response(map() | nil) :: Address.t() | Error.t()
+  defp build_response(nil), do: Error.new("CEP NAO ENCONTRADO")
+  defp build_response(response) when is_map(response), do: Address.new(response)
 
   @doc """
   Parses a Correios API response error to `#{inspect(Error)}` struct.
