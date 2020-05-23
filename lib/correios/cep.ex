@@ -16,8 +16,10 @@ defmodule Correios.CEP do
 
   ## Options
 
-    * `connection_timeout`: timeout for establishing a TCP or SSL connection, in milliseconds. Default is 5000.
-    * `request_timeout`: timeout for receiving an HTTP response from the socket. Default is 5000.
+    * `connection_timeout`: timeout for establishing a connection, in milliseconds. Default is 5000.
+    * `request_timeout`: timeout for receiving the HTTP response, in milliseconds. Default is 5000.
+    * `proxy`: proxy to be used for the request: `{host, port}` tuple, where `port` is an integer.
+    * `proxy_auth`: proxy authentication: `{user, password}` tuple.
     * `url`: Correios API full URL. Default is "https://apps.correios.com.br/SigepMasterJPA/AtendeClienteService/AtendeCliente".
 
   ## Examples
@@ -45,6 +47,17 @@ defmodule Correios.CEP do
        }}
 
       iex> #{inspect(__MODULE__)}.find_address("54250-610", connection_timeout: 1000, request_timeout: 1000)
+      {:ok,
+       %#{inspect(Address)}{
+         city: "Jaboatão dos Guararapes",
+         complement: "",
+         neighborhood: "Cavaleiro",
+         state: "PE",
+         street: "Rua Fernando Amorim",
+         zipcode: "54250610"
+       }}
+
+      iex> #{inspect(__MODULE__)}.find_address("54250-610", proxy: {"localhost", 8888})
       {:ok,
        %#{inspect(Address)}{
          city: "Jaboatão dos Guararapes",

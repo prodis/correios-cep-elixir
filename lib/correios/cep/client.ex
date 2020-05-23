@@ -60,10 +60,12 @@ defmodule Correios.CEP.Client do
 
   @spec build_http_options(keyword()) :: keyword()
   defp build_http_options(options) do
-    # Timeouts in miliseconds
     [
+      proxy: Keyword.get(options, :proxy),
+      proxy_auth: Keyword.get(options, :proxy_auth),
+      recv_timeout: Keyword.get(options, :request_timeout, 5000),
       timeout: Keyword.get(options, :connection_timeout, 5000),
-      recv_timeout: Keyword.get(options, :request_timeout, 5000)
+      ssl: [ciphers: ['AES256-SHA256'], versions: [:"tlsv1.2"]]
     ]
   end
 
