@@ -17,7 +17,7 @@ The package can be installed by adding `correios_cep` to your list of dependenci
 ```elixir
 def deps do
   [
-    {:correios_cep, "~> 0.4.0"}
+    {:correios_cep, "~> 0.5.0"}
   ]
 end
 ```
