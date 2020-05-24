@@ -69,10 +69,10 @@ defmodule Correios.CEP do
        }}
 
       iex> #{inspect(__MODULE__)}.find_address(
-        "54250-610",
-        proxy: {"localhost", 8888},
-        proxy_auth: {"myuser", "mypass"}
-      )
+      ...>   "54250-610",
+      ...>   proxy: {"localhost", 8888},
+      ...>   proxy_auth: {"myuser", "mypass"}
+      ...> )
       {:ok,
        %#{inspect(Address)}{
          city: "Jaboatão dos Guararapes",
