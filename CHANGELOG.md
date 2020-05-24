@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file.
 ### Added
 - Support for proxy configuration. [Issue #7](https://github.com/prodis/correios-cep-elixir/issues/7)
 
+### Changed
+- Update dependencies.
+
 ## [0.4.0] - 2020-04-19
 ### Added
 - Correios API full URL in options.
