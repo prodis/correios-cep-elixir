@@ -31,8 +31,8 @@ help: ## Print this help
 integration: ## Runs integration tests.
 	CORREIOS_CEP_TEST=integration mix test test/correios/cep/integration_test.exs --trace --only integration
 
-.PHONY: full
-full: ## Runs Elixir format, Credo, Dialyzer, unit tests with coverage, and integration tests.
+.PHONY: validation
+validation: ## Runs Elixir format, Credo, Dialyzer, unit tests with coverage, and integration tests.
 	@printf "${YELLOW_COLOR}--------------------------------------------\n"
 	@printf "Elixir format\n"
 	@printf "${YELLOW_COLOR}--------------------------------------------${DEFAULT_COLOR}\n"
