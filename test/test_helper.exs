@@ -1,4 +1,6 @@
-ExUnit.start()
-Application.ensure_all_started(:bypass)
+ExUnit.start(exclude: :integration)
 
-Application.put_env(:correios_cep, :client, Correios.CEP.ClientFake)
+unless System.get_env("CORREIOS_CEP_TEST") == "integration" do
+  Application.ensure_all_started(:bypass)
+  Application.put_env(:correios_cep, :client, Correios.CEP.ClientFake)
+end

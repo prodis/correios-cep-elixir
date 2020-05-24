@@ -3,7 +3,6 @@ defmodule Correios.CEPTest do
 
   alias Correios.CEP, as: Subject
 
-  # Correios.CEP.ClientFake is injected in test/test_helper.exs.
   alias Correios.CEP.{Address, Error}
 
   doctest Subject
@@ -20,11 +19,11 @@ defmodule Correios.CEPTest do
 
   setup do
     address = %Address{
-      city: "Jaboatão dos Guararapes",
+      street: "Rua Fernando Amorim",
       complement: "",
       neighborhood: "Cavaleiro",
+      city: "Jaboatão dos Guararapes",
       state: "PE",
-      street: "Rua Fernando Amorim",
       zipcode: "54250610"
     }
 

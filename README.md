@@ -39,17 +39,6 @@ iex> Correios.CEP.find_address("54250610")
 iex> Correios.CEP.find_address("00000-000")
 {:error, %Correios.CEP.Error{reason: "CEP NAO ENCONTRADO"}}
 
-iex> Correios.CEP.find_address("54250610", request_timeout: 3000)
-{:ok,
- %Correios.CEP.Address{
-   city: "Jaboatão dos Guararapes",
-   complement: "",
-   neighborhood: "Cavaleiro",
-   state: "PE",
-   street: "Rua Fernando Amorim",
-   zipcode: "54250610"
- }}
-
 iex> Correios.CEP.find_address!("54250-610")
 %Correios.CEP.Address{
   city: "Jaboatão dos Guararapes",
@@ -65,9 +54,27 @@ iex> Correios.CEP.find_address!("00000-000")
 ```
 
 ### Options
-Options for timeouts and URL are supported. Check the
-[`Correios.CEP.find_address/2`](https://hexdocs.pm/correios_cep/Correios.CEP.html#find_address/2)
-documentation to see all available options as well as their default values.
+
+There are some supported options that can be added to the request, as timeouts, proxy and URL
+configuration.
+
+The example below shows the use of `request_timeout` and `proxy` options:
+
+```elixir
+iex> Correios.CEP.find_address("54250610", request_timeout: 3000, proxy: {"localhost", 8888})
+{:ok,
+ %Correios.CEP.Address{
+   city: "Jaboatão dos Guararapes",
+   complement: "",
+   neighborhood: "Cavaleiro",
+   state: "PE",
+   street: "Rua Fernando Amorim",
+   zipcode: "54250610"
+ }}
+```
+
+See [`Correios.CEP.find_address/2`](https://hexdocs.pm/correios_cep/Correios.CEP.html#find_address/2)
+documentation to check the details of the available options.
 
 ## Documentation
 

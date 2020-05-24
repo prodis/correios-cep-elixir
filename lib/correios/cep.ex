@@ -16,9 +16,11 @@ defmodule Correios.CEP do
 
   ## Options
 
-    * `connection_timeout`: timeout for establishing a TCP or SSL connection, in milliseconds. Default is 5000.
-    * `request_timeout`: timeout for receiving an HTTP response from the socket. Default is 5000.
-    * `url`: Correios API full URL. Default is "https://apps.correios.com.br/SigepMasterJPA/AtendeClienteService/AtendeCliente".
+    * `connection_timeout`: timeout for establishing a connection, in milliseconds. Default is 5000.
+    * `request_timeout`: timeout for receiving the HTTP response, in milliseconds. Default is 5000.
+    * `proxy`: proxy to be used for the request: `{host, port}` tuple, where `port` is an integer.
+    * `proxy_auth`: proxy authentication: `{user, password}` tuple.
+    * `url`: Correios API full URL. Default is `https://apps.correios.com.br/SigepMasterJPA/AtendeClienteService/AtendeCliente`.
 
   ## Examples
 
@@ -45,6 +47,32 @@ defmodule Correios.CEP do
        }}
 
       iex> #{inspect(__MODULE__)}.find_address("54250-610", connection_timeout: 1000, request_timeout: 1000)
+      {:ok,
+       %#{inspect(Address)}{
+         city: "Jaboatão dos Guararapes",
+         complement: "",
+         neighborhood: "Cavaleiro",
+         state: "PE",
+         street: "Rua Fernando Amorim",
+         zipcode: "54250610"
+       }}
+
+      iex> #{inspect(__MODULE__)}.find_address("54250-610", proxy: {"localhost", 8888})
+      {:ok,
+       %#{inspect(Address)}{
+         city: "Jaboatão dos Guararapes",
+         complement: "",
+         neighborhood: "Cavaleiro",
+         state: "PE",
+         street: "Rua Fernando Amorim",
+         zipcode: "54250610"
+       }}
+
+      iex> #{inspect(__MODULE__)}.find_address(
+      ...>   "54250-610",
+      ...>   proxy: {"localhost", 8888},
+      ...>   proxy_auth: {"myuser", "mypass"}
+      ...> )
       {:ok,
        %#{inspect(Address)}{
          city: "Jaboatão dos Guararapes",
@@ -87,7 +115,15 @@ defmodule Correios.CEP do
   defp client, do: Application.get_env(:correios_cep, :client) || Client
 
   @spec parse(Client.t()) :: t()
-  defp parse({:ok, response}), do: {:ok, Parser.parse_response(response)}
+  defp parse({:ok, response}) do
+    response
+    |> Parser.parse_ok()
+    |> case do
+      %Address{} = address -> {:ok, address}
+      %Error{} = error -> {:error, error}
+    end
+  end
+
   defp parse({:error, error}), do: {:error, Parser.parse_error(error)}
 
   @doc """
@@ -109,12 +145,6 @@ defmodule Correios.CEP do
 
       iex> #{inspect(__MODULE__)}.find_address!("00000-000")
       ** (#{inspect(Error)}) CEP NAO ENCONTRADO
-
-      iex> #{inspect(__MODULE__)}.find_address!("1234567")
-      ** (#{inspect(Error)}) zipcode in invalid format
-
-      iex> #{inspect(__MODULE__)}.find_address!("")
-      ** (#{inspect(Error)}) zipcode is required
 
   """
   @spec find_address!(String.t(), keyword()) :: Address.t()

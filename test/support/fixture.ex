@@ -32,6 +32,14 @@ defmodule Correios.CEP.Test.Fixture do
       "</soap:Envelope>"
   end
 
+  def response_body_empty do
+    "<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">" <>
+      "<soap:Body>" <>
+      "<ns2:consultaCEPResponse xmlns:ns2=\"http://cliente.bean.master.sigep.bsb.correios.com.br/\"/>" <>
+      "</soap:Body>" <>
+      "</soap:Envelope>"
+  end
+
   def response_body_error do
     "<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">" <>
       "<soap:Body>" <>

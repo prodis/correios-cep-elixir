@@ -10,10 +10,24 @@ otp_release:
   - 21.0
   - 22.0
 
+services:
+  - docker
+
+env:
+  - DOCKER_COMPOSE_VERSION=1.25.5
+
 jobs:
   exclude:
     - elixir: 1.10
       otp_release: 20.0
+
+before_install:
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+  - docker-compose --version
+  - docker-compose build
 
 install:
   - mix local.hex --force
@@ -23,6 +37,7 @@ install:
 before_script:
   - mix compile
   - MIX_ENV=test mix compile
+  - docker-compose up --detach
 
 script:
   - mix format --check-formatted
@@ -30,6 +45,15 @@ script:
   - mix dialyzer
   - mix test
   - mix coveralls.travis --trace
+  - make integration
+
+after_script:
+   - docker-compose down
+
+# Leave only .plt files in build
+before_cache:
+  - mix deps.clean --all --build
+  - mix clean --build
 
 cache:
   directories:
@@ -37,8 +61,3 @@ cache:
     - ~/.mix
     - _build
     - priv/plts
-
-# Leave only .plt files in build
-before_cache:
-  - mix deps.clean --all --build
-  - mix clean --build

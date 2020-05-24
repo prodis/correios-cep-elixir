@@ -6,27 +6,33 @@ defmodule Correios.CEP.ParserTest do
   alias Correios.CEP.{Address, Error}
   alias Correios.CEP.Test.Fixture
 
-  describe "parse_response/1" do
+  describe "parse_ok/1" do
     test "returns the parsed address" do
       response = Fixture.response_body_ok()
 
       expected_address = %Address{
-        city: "Jaboatão dos Guararapes",
+        street: "Rua Fernando Amorim",
         complement: "",
         neighborhood: "Cavaleiro",
+        city: "Jaboatão dos Guararapes",
         state: "PE",
-        street: "Rua Fernando Amorim",
         zipcode: "54250610"
       }
 
-      assert Subject.parse_response(response) == expected_address
+      assert Subject.parse_ok(response) == expected_address
+    end
+
+    test "when body is empty, return not found error" do
+      response = Fixture.response_body_empty()
+      expected_error = %Error{reason: "CEP NAO ENCONTRADO"}
+
+      assert Subject.parse_ok(response) == expected_error
     end
   end
 
   describe "parse_error/1" do
     test "returns the parsed error" do
       response = Fixture.response_body_error()
-
       expected_error = %Error{reason: "CEP NAO ENCONTRADO"}
 
       assert Subject.parse_error(response) == expected_error

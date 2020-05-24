@@ -27,8 +27,12 @@ help: ## Print this help
 	@printf "${NAME} v${VERSION}\n"
 	@awk -F ':|##' '/^[^\t].+?:.*?##/ { printf "${LIGHT_MAGENT_COLOR}%-30s${YELLOW_COLOR} %s\n", $$1, $$NF }' $(MAKEFILE_LIST)
 
-.PHONY: full-test
-full-test: ## Runs Elixir format, Credo, Dialyzer, and unit tests with coverage.
+.PHONY: integration
+integration: ## Runs integration tests.
+	CORREIOS_CEP_TEST=integration mix test test/correios/cep/integration_test.exs --trace --only integration
+
+.PHONY: full
+full: ## Runs Elixir format, Credo, Dialyzer, unit tests with coverage, and integration tests.
 	@printf "${YELLOW_COLOR}--------------------------------------------\n"
 	@printf "Elixir format\n"
 	@printf "${YELLOW_COLOR}--------------------------------------------${DEFAULT_COLOR}\n"
@@ -45,6 +49,10 @@ full-test: ## Runs Elixir format, Credo, Dialyzer, and unit tests with coverage.
 	@printf "Unit tests\n"
 	@printf "${YELLOW_COLOR}--------------------------------------------${DEFAULT_COLOR}\n"
 	mix test --cover --trace
+	@printf "\n${YELLOW_COLOR}--------------------------------------------\n"
+	@printf "Integration tests\n"
+	@printf "${YELLOW_COLOR}--------------------------------------------${DEFAULT_COLOR}\n"
+	@make integration
 
 .PHONY: release
 release: ## Bumps the version and creates a new tag
