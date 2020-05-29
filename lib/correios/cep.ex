@@ -104,7 +104,7 @@ defmodule Correios.CEP do
       |> client().request(options)
       |> parse()
     else
-      {:error, Error.new("postal_code in invalid format")}
+      {:error, Error.new("postal code in invalid format")}
     end
   end
 
