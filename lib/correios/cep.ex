@@ -87,7 +87,7 @@ defmodule Correios.CEP do
       {:error, %#{inspect(Error)}{reason: "CEP NAO ENCONTRADO"}}
 
       iex> #{inspect(__MODULE__)}.find_address("1234567")
-      {:error, %#{inspect(Error)}{reason: "postal_code in invalid format"}}
+      {:error, %#{inspect(Error)}{reason: "postal code in invalid format"}}
 
       iex> #{inspect(__MODULE__)}.find_address("")
       {:error, %#{inspect(Error)}{reason: "postal_code is required"}}

@@ -56,7 +56,7 @@ defmodule Correios.CEPTest do
     end
 
     test "when postal code has invalid format, returns invalid format error" do
-      expected_error = %Error{reason: "postal_code in invalid format"}
+      expected_error = %Error{reason: "postal code in invalid format"}
 
       Enum.each(@invalid_postal_codes, fn postal_code ->
         assert Subject.find_address(postal_code) == {:error, expected_error}
@@ -91,7 +91,7 @@ defmodule Correios.CEPTest do
 
     test "when postal code has invalid format, raises invalid format error" do
       Enum.each(@invalid_postal_codes, fn postal_code ->
-        assert_raise Error, "postal_code in invalid format", fn ->
+        assert_raise Error, "postal code in invalid format", fn ->
           Subject.find_address!(postal_code)
         end
       end)
