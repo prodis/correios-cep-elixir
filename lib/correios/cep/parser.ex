@@ -14,7 +14,7 @@ defmodule Correios.CEP.Parser do
     neighborhood: "bairro",
     city: "cidade",
     state: "uf",
-    zipcode: "cep"
+    postal_code: "cep"
   ]
 
   @xmap_params for {new_key, old_key} <- @address_map,

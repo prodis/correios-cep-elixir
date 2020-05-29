@@ -55,7 +55,7 @@ defmodule Correios.CEP.MixProject do
 
   defp description do
     """
-    Find Brazilian addresses by zip code, directly from Correios API. No HTML parsers.
+    Find Brazilian addresses by postal code, directly from Correios API. No HTML parsers.
     """
   end
 
