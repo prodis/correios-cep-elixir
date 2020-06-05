@@ -3,8 +3,7 @@ defmodule Correios.CEP.Address do
   Address structure.
   """
 
-  @enforce_keys [:street, :complement, :neighborhood, :city, :state, :postal_code]
-
+  @enforce_keys [:street, :complement, :neighborhood, :city, :state, :postal_code, :zipcode]
   defstruct @enforce_keys
 
   @type t() :: %__MODULE__{
@@ -13,7 +12,8 @@ defmodule Correios.CEP.Address do
           neighborhood: String.t(),
           city: String.t(),
           state: String.t(),
-          postal_code: String.t()
+          postal_code: String.t(),
+          zipcode: String.t()
         }
   @typep complement :: charlist() | nil
 
@@ -40,7 +40,8 @@ defmodule Correios.CEP.Address do
         neighborhood: "Neighborhood",
         state: "ST",
         street: "Street",
-        postal_code: "12345678"
+        postal_code: "12345678",
+        zipcode: "12345678"
       }
 
   """
@@ -60,6 +61,7 @@ defmodule Correios.CEP.Address do
       city: to_string(city),
       state: to_string(state),
       postal_code: to_string(postal_code),
+      zipcode: to_string(postal_code),
       complement: build_complement(complement1, complement2)
     }
   end

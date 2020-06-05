@@ -13,7 +13,8 @@ defmodule Correios.CEP.IntegrationTest do
       neighborhood: "Bela Vista",
       city: "São Paulo",
       state: "SP",
-      postal_code: "01311200"
+      postal_code: "01311200",
+      zipcode: "01311200"
     }
 
     not_found_error = %Error{
