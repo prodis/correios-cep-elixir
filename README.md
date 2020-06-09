@@ -12,7 +12,7 @@ Find Brazilian addresses by postal code, directly from Correios API. No HTML par
 
 ## DEPRECATION NOTE
 
-The `Correios.CEP.Address.zipode` is deprecated. Use `Correios.CEP.Address.postal_code` instead.
+`Correios.CEP.Address.zipcode` is deprecated. Use `Correios.CEP.Address.postal_code` instead.
 
 The version `0.5.1` introduces the field `postal_code` in `Correios.CEP.Address` struct with the
 same value of `zipcode` field. In the version `0.6.0` the `zipcode` field will be removed.
