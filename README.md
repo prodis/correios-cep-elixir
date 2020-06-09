@@ -10,6 +10,13 @@
 
 Find Brazilian addresses by postal code, directly from Correios API. No HTML parsers.
 
+## DEPRECATION NOTE
+
+The `Correios.CEP.Address.zipode` is deprecated. Use `Correios.CEP.Address.postal_code` instead.
+
+The version `0.5.1` introduces the field `postal_code` in `Correios.CEP.Address` struct with the
+same value of `zipcode` field. In the version `0.6.0` the `zipcode` field will be removed.
+
 ## Installation
 
 The package can be installed by adding `correios_cep` to your list of dependencies in `mix.exs`:
@@ -28,12 +35,13 @@ end
 iex> Correios.CEP.find_address("54250610")
 {:ok,
  %Correios.CEP.Address{
-   city: "Jaboatão dos Guararapes",
-   complement: "",
-   neighborhood: "Cavaleiro",
-   state: "PE",
    street: "Rua Fernando Amorim",
-   postal_code: "54250610"
+   neighborhood: "Cavaleiro",
+   complement: "",
+   city: "Jaboatão dos Guararapes",
+   state: "PE",
+   postal_code: "54250610",
+   zipcode: "54250610"
  }}
 
 iex> Correios.CEP.find_address("00000-000")
@@ -41,12 +49,13 @@ iex> Correios.CEP.find_address("00000-000")
 
 iex> Correios.CEP.find_address!("54250-610")
 %Correios.CEP.Address{
-  city: "Jaboatão dos Guararapes",
-  complement: "",
-  neighborhood: "Cavaleiro",
-  state: "PE",
   street: "Rua Fernando Amorim",
-  postal_code: "54250610"
+  neighborhood: "Cavaleiro",
+  complement: "",
+  city: "Jaboatão dos Guararapes",
+  state: "PE",
+  postal_code: "54250610",
+  zipcode: "54250610"
 }
 
 iex> Correios.CEP.find_address!("00000-000")
@@ -64,12 +73,13 @@ The example below shows the use of `request_timeout` and `proxy` options:
 iex> Correios.CEP.find_address("54250610", request_timeout: 3000, proxy: {"localhost", 8888})
 {:ok,
  %Correios.CEP.Address{
-   city: "Jaboatão dos Guararapes",
-   complement: "",
-   neighborhood: "Cavaleiro",
-   state: "PE",
    street: "Rua Fernando Amorim",
-   postal_code: "54250610"
+   neighborhood: "Cavaleiro",
+   complement: "",
+   city: "Jaboatão dos Guararapes",
+   state: "PE",
+   postal_code: "54250610",
+   zipcode: "54250610"
  }}
 ```
 

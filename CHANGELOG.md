@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+### Added
+- The field `postal_code` in `Correios.CEP.Address` with the same value of
+`zipcode` field, that will be deprecated in the next version. Part of the
+[Issue #17](https://github.com/prodis/correios-cep-elixir/issues/17).
 
 ## [0.5.0] - 2020-05-24
 ### Added
