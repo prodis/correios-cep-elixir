@@ -15,7 +15,7 @@ defmodule Correios.CEP.Client do
   ]
 
   @doc """
-  Makes a HTTP request to Correios API using the given `zipcode` and `options`.
+  Makes a HTTP request to Correios API using the given `postal_code` and `options`.
 
   ## Examples
 
@@ -30,9 +30,9 @@ defmodule Correios.CEP.Client do
 
   """
   @spec request(String.t(), keyword()) :: t()
-  def request(zipcode, options) do
+  def request(postal_code, options) do
     url = build_url(options)
-    body = build_body(zipcode)
+    body = build_body(postal_code)
     http_options = build_http_options(options)
 
     url
@@ -44,14 +44,14 @@ defmodule Correios.CEP.Client do
   defp build_url(options), do: Keyword.get(options, :url, @default_url)
 
   @spec build_body(String.t()) :: String.t()
-  defp build_body(zipcode) do
+  defp build_body(postal_code) do
     """
     <?xml version="1.0" encoding="UTF-8"?>
     <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:cli="http://cliente.bean.master.sigep.bsb.correios.com.br/">
       <soapenv:Header />
       <soapenv:Body>
         <cli:consultaCEP>
-          <cep>#{zipcode}</cep>
+          <cep>#{postal_code}</cep>
         </cli:consultaCEP>
       </soapenv:Body>
     </soapenv:Envelope>

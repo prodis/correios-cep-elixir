@@ -8,7 +8,7 @@
 
 ![Correios Logo](http://prodis.net.br/images/ruby/2015/correios_logo.png)
 
-Find Brazilian addresses by zip code, directly from Correios API. No HTML parsers.
+Find Brazilian addresses by postal code, directly from Correios API. No HTML parsers.
 
 ## Installation
 
@@ -33,7 +33,7 @@ iex> Correios.CEP.find_address("54250610")
    neighborhood: "Cavaleiro",
    state: "PE",
    street: "Rua Fernando Amorim",
-   zipcode: "54250610"
+   postal_code: "54250610"
  }}
 
 iex> Correios.CEP.find_address("00000-000")
@@ -46,7 +46,7 @@ iex> Correios.CEP.find_address!("54250-610")
   neighborhood: "Cavaleiro",
   state: "PE",
   street: "Rua Fernando Amorim",
-  zipcode: "54250610"
+  postal_code: "54250610"
 }
 
 iex> Correios.CEP.find_address!("00000-000")
@@ -69,7 +69,7 @@ iex> Correios.CEP.find_address("54250610", request_timeout: 3000, proxy: {"local
    neighborhood: "Cavaleiro",
    state: "PE",
    street: "Rua Fernando Amorim",
-   zipcode: "54250610"
+   postal_code: "54250610"
  }}
 ```
 

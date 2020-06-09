@@ -14,7 +14,7 @@ defmodule Correios.CEP.AddressTest do
         neighborhood: 'Neighborhood',
         city: 'City',
         state: 'ST',
-        zipcode: '12345678'
+        postal_code: '12345678'
       }
 
       {:ok, params: params}
@@ -27,6 +27,7 @@ defmodule Correios.CEP.AddressTest do
         neighborhood: "Neighborhood",
         city: "City",
         state: "ST",
+        postal_code: "12345678",
         zipcode: "12345678"
       }
 
@@ -42,6 +43,7 @@ defmodule Correios.CEP.AddressTest do
         neighborhood: "Neighborhood",
         city: "City",
         state: "ST",
+        postal_code: "12345678",
         zipcode: "12345678"
       }
 
