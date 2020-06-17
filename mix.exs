@@ -20,13 +20,7 @@ defmodule Correios.CEP.MixProject do
       package: package(),
       docs: docs(),
       test_coverage: [tool: ExCoveralls],
-      preferred_cli_env: [
-        coveralls: :test,
-        "coveralls.detail": :test,
-        "coveralls.post": :test,
-        "coveralls.html": :test,
-        "coveralls.travis": :test
-      ]
+      preferred_cli_env: preferred_cli_env()
     ]
   end
 
@@ -39,7 +33,7 @@ defmodule Correios.CEP.MixProject do
   defp deps do
     [
       # Common
-      {:httpoison, "~> 1.6"},
+      {:httpoison, "~> 1.7"},
       {:sweet_xml, "~> 0.6"},
 
       # Development
@@ -49,7 +43,7 @@ defmodule Correios.CEP.MixProject do
 
       # Test
       {:bypass, "~> 1.0", only: :test},
-      {:excoveralls, "~> 0.12", only: :test}
+      {:excoveralls, "~> 0.13", only: :test}
     ]
   end
 
@@ -86,4 +80,14 @@ defmodule Correios.CEP.MixProject do
 
   defp elixirc_paths(:test), do: ["lib", "test/support"]
   defp elixirc_paths(_), do: ["lib"]
+
+  defp preferred_cli_env do
+    [
+      coveralls: :test,
+      "coveralls.detail": :test,
+      "coveralls.post": :test,
+      "coveralls.html": :test,
+      "coveralls.travis": :test
+    ]
+  end
 end

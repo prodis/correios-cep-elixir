@@ -2,6 +2,14 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+## Changed
+- Update HTTPoison to 1.17.0 (hackeny 1.16.0)
+
+## Deprecated
+- The field `zipcode` in `Correios.CEP.Address`. Use the field `postal_code` instead.
+
+## Removed
+- Support for OTP 20.
 
 ## [0.5.1] - 2020-06-09
 ### Added
