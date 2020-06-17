@@ -24,8 +24,7 @@ defmodule Correios.CEPTest do
       neighborhood: "Cavaleiro",
       city: "Jaboatão dos Guararapes",
       state: "PE",
-      postal_code: "54250610",
-      zipcode: "54250610"
+      postal_code: "54250610"
     }
 
     {:ok, address: address}

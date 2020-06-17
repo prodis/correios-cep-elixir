@@ -32,8 +32,7 @@ defmodule Correios.CEP do
          neighborhood: "Cavaleiro",
          state: "PE",
          street: "Rua Fernando Amorim",
-         postal_code: "54250610",
-         zipcode: "54250610"
+         postal_code: "54250610"
        }}
 
       iex> #{inspect(__MODULE__)}.find_address("54250-610")
@@ -44,8 +43,7 @@ defmodule Correios.CEP do
          neighborhood: "Cavaleiro",
          state: "PE",
          street: "Rua Fernando Amorim",
-         postal_code: "54250610",
-         zipcode: "54250610"
+         postal_code: "54250610"
        }}
 
       iex> #{inspect(__MODULE__)}.find_address("54250-610", connection_timeout: 1000, request_timeout: 1000)
@@ -56,8 +54,7 @@ defmodule Correios.CEP do
          neighborhood: "Cavaleiro",
          state: "PE",
          street: "Rua Fernando Amorim",
-         postal_code: "54250610",
-         zipcode: "54250610"
+         postal_code: "54250610"
        }}
 
       iex> #{inspect(__MODULE__)}.find_address("54250-610", proxy: {"localhost", 8888})
@@ -68,8 +65,7 @@ defmodule Correios.CEP do
          neighborhood: "Cavaleiro",
          state: "PE",
          street: "Rua Fernando Amorim",
-         postal_code: "54250610",
-         zipcode: "54250610"
+         postal_code: "54250610"
        }}
 
       iex> #{inspect(__MODULE__)}.find_address(
@@ -84,8 +80,7 @@ defmodule Correios.CEP do
          neighborhood: "Cavaleiro",
          state: "PE",
          street: "Rua Fernando Amorim",
-         postal_code: "54250610",
-         zipcode: "54250610"
+         postal_code: "54250610"
        }}
 
       iex> #{inspect(__MODULE__)}.find_address("00000-000")
@@ -145,8 +140,7 @@ defmodule Correios.CEP do
         neighborhood: "Cavaleiro",
         state: "PE",
         street: "Rua Fernando Amorim",
-        postal_code: "54250610",
-        zipcode: "54250610"
+        postal_code: "54250610"
       }
 
       iex> #{inspect(__MODULE__)}.find_address!("00000-000")

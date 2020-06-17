@@ -40,8 +40,7 @@ iex> Correios.CEP.find_address("54250610")
    complement: "",
    city: "Jaboatão dos Guararapes",
    state: "PE",
-   postal_code: "54250610",
-   zipcode: "54250610"
+   postal_code: "54250610"
  }}
 
 iex> Correios.CEP.find_address("00000-000")
@@ -54,8 +53,7 @@ iex> Correios.CEP.find_address!("54250-610")
   complement: "",
   city: "Jaboatão dos Guararapes",
   state: "PE",
-  postal_code: "54250610",
-  zipcode: "54250610"
+  postal_code: "54250610"
 }
 
 iex> Correios.CEP.find_address!("00000-000")
@@ -78,8 +76,7 @@ iex> Correios.CEP.find_address("54250610", request_timeout: 3000, proxy: {"local
    complement: "",
    city: "Jaboatão dos Guararapes",
    state: "PE",
-   postal_code: "54250610",
-   zipcode: "54250610"
+   postal_code: "54250610"
  }}
 ```
 

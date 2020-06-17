@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+## Deprecated
+- The field `zipcode` in `Correios.CEP.Address`. Use the field `postal_code` instead.
 
 ## [0.5.1] - 2020-06-09
 ### Added

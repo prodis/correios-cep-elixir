@@ -27,8 +27,7 @@ defmodule Correios.CEP.AddressTest do
         neighborhood: "Neighborhood",
         city: "City",
         state: "ST",
-        postal_code: "12345678",
-        zipcode: "12345678"
+        postal_code: "12345678"
       }
 
       assert Subject.new(params) == expected_address
@@ -43,8 +42,7 @@ defmodule Correios.CEP.AddressTest do
         neighborhood: "Neighborhood",
         city: "City",
         state: "ST",
-        postal_code: "12345678",
-        zipcode: "12345678"
+        postal_code: "12345678"
       }
 
       assert Subject.new(params) == expected_address
