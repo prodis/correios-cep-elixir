@@ -12,10 +12,7 @@ Find Brazilian addresses by postal code, directly from Correios API. No HTML par
 
 ## DEPRECATION NOTE
 
-`Correios.CEP.Address.zipcode` is deprecated. Use `Correios.CEP.Address.postal_code` instead.
-
-The version `0.5.1` introduces the field `postal_code` in `Correios.CEP.Address` struct with the
-same value of `zipcode` field. In the version `0.6.0` the `zipcode` field will be removed.
+`Correios.CEP.Address.zipcode` was removed in the version `0.6.0`. Use `Correios.CEP.Address.postal_code` instead.
 
 ## Installation
 
@@ -24,7 +21,7 @@ The package can be installed by adding `correios_cep` to your list of dependenci
 ```elixir
 def deps do
   [
-    {:correios_cep, "~> 0.5.1"}
+    {:correios_cep, "~> 0.6.0"}
   ]
 end
 ```

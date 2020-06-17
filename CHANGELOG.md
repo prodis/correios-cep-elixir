@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+
+## [0.6.0] - 2020-06-17
 ## Changed
 - Update HTTPoison to 1.17.0 (hackeny 1.16.0)
 
@@ -48,7 +50,8 @@ will be deprecated in the next version. Part of the [Issue #17](https://github.c
 ### Added
 - Initial release.
 
-[Unreleased]: https://github.com/prodis/correios-cep-elixir/compare/0.5.1...master
+[Unreleased]: https://github.com/prodis/correios-cep-elixir/compare/0.6.0...master
+[0.6.0]: https://github.com/prodis/correios-cep-elixir/compare/0.5.1...0.6.0
 [0.5.1]: https://github.com/prodis/correios-cep-elixir/compare/0.5.0...0.5.1
 [0.5.0]: https://github.com/prodis/correios-cep-elixir/compare/0.4.0...0.5.0
 [0.4.0]: https://github.com/prodis/correios-cep-elixir/compare/v0.3.0...0.4.0
