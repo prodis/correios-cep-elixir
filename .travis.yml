@@ -6,7 +6,6 @@ elixir:
   - 1.8
   - 1.7
 otp_release:
-  - 20.0
   - 21.0
   - 22.0
 
@@ -15,11 +14,6 @@ services:
 
 env:
   - DOCKER_COMPOSE_VERSION=1.25.5
-
-jobs:
-  exclude:
-    - elixir: 1.10
-      otp_release: 20.0
 
 before_install:
   - sudo rm /usr/local/bin/docker-compose

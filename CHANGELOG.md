@@ -8,6 +8,9 @@ All notable changes to this project will be documented in this file.
 ## Deprecated
 - The field `zipcode` in `Correios.CEP.Address`. Use the field `postal_code` instead.
 
+## Removed
+- Support for OTP 20.
+
 ## [0.5.1] - 2020-06-09
 ### Added
 - The field `postal_code` in `Correios.CEP.Address` with the same value of `zipcode` field, that
