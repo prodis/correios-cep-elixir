@@ -62,9 +62,22 @@ defmodule Correios.CEP.Error do
 
       iex> error = %#{inspect(__MODULE__)}{type: :some_type, message: "Some message", reason: "Catastrophic error!"}
       ...> #{inspect(__MODULE__)}.message(error)
+      "Some message"
+
+  """
+  @impl true
+  def message(%__MODULE__{message: message}), do: message
+
+  @doc """
+  Returns the reason message of the exception.
+
+  ## Examples
+
+      iex> error = %#{inspect(__MODULE__)}{type: :some_type, message: "Some message", reason: "Catastrophic error!"}
+      ...> #{inspect(__MODULE__)}.reason(error)
       "Catastrophic error!"
 
   """
   @impl true
-  def message(%__MODULE__{reason: reason}), do: reason
+  def reason(%__MODULE__{reason: reason}), do: reason
 end

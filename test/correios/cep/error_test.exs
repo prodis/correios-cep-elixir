@@ -57,7 +57,13 @@ defmodule Correios.CEP.ErrorTest do
 
   describe "message/1" do
     test "returns the message of the error", %{error: error} do
-      assert Subject.message(error) == "Catastrophic error!"
+      assert Subject.message(error) == "Some message"
+    end
+  end
+
+  describe "reason/1" do
+    test "returns the reason of the error", %{error: error} do
+      assert Subject.reason(error) == "Catastrophic error!"
     end
   end
 end
