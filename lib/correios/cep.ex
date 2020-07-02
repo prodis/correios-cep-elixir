@@ -84,19 +84,21 @@ defmodule Correios.CEP do
        }}
 
       iex> #{inspect(__MODULE__)}.find_address("00000-000")
-      {:error, %#{inspect(Error)}{reason: "CEP NAO ENCONTRADO"}}
+      {:error, %#{inspect(Error)}{type: :some_type, message: "Some message", reason: "CEP NAO ENCONTRADO"}}
 
       iex> #{inspect(__MODULE__)}.find_address("1234567")
-      {:error, %#{inspect(Error)}{reason: "postal code in invalid format"}}
+      {:error, %#{inspect(Error)}{type: :some_type, message: "Some message", reason: "postal code in invalid format"}}
 
       iex> #{inspect(__MODULE__)}.find_address("")
-      {:error, %#{inspect(Error)}{reason: "postal_code is required"}}
+      {:error, %#{inspect(Error)}{type: :some_type, message: "Some message", reason: "postal_code is required"}}
 
   """
   @spec find_address(String.t(), keyword()) :: t()
   def find_address(postal_code, options \\ [])
 
-  def find_address("", _options), do: {:error, Error.new("postal_code is required")}
+  def find_address("", _options) do
+    {:error, Error.new(:some_type, "Some message", "postal_code is required")}
+  end
 
   def find_address(postal_code, options) when is_binary(postal_code) and is_list(options) do
     if valid_postal_code?(postal_code) do
@@ -104,7 +106,7 @@ defmodule Correios.CEP do
       |> client().request(options)
       |> parse()
     else
-      {:error, Error.new("postal code in invalid format")}
+      {:error, Error.new(:some_type, "Some message", "postal code in invalid format")}
     end
   end
 

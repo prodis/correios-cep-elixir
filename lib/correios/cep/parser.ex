@@ -43,7 +43,7 @@ defmodule Correios.CEP.Parser do
   end
 
   @spec build_response(map() | nil) :: Address.t() | Error.t()
-  defp build_response(nil), do: Error.new("CEP NAO ENCONTRADO")
+  defp build_response(nil), do: Error.new(:some_type, "Some message", "CEP NAO ENCONTRADO")
   defp build_response(response) when is_map(response), do: Address.new(response)
 
   @doc """
@@ -60,10 +60,10 @@ defmodule Correios.CEP.Parser do
   """
   @spec parse_error(any()) :: Error.t()
   def parse_error(response) when is_binary(response) do
-    response
-    |> xpath(~x"//faultstring/text()")
-    |> Error.new()
+    reason = xpath(response, ~x"//faultstring/text()")
+
+    Error.new(:some_type, "Some message", reason)
   end
 
-  def parse_error(response), do: Error.new(response)
+  def parse_error(response), do: Error.new(:some_type, "Some message", response)
 end

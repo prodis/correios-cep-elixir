@@ -44,19 +44,19 @@ defmodule Correios.CEPTest do
     end
 
     test "when postal code is valid and address is not found, returns not found error" do
-      expected_error = %Error{reason: "CEP NAO ENCONTRADO"}
+      expected_error = %Error{type: :some_type, message: "Some message", reason: "CEP NAO ENCONTRADO"}
 
       assert Subject.find_address("00000-000") == {:error, expected_error}
     end
 
     test "when postal code is empty, returns required error" do
-      expected_error = %Error{reason: "postal_code is required"}
+      expected_error = %Error{type: :some_type, message: "Some message", reason: "postal_code is required"}
 
       assert Subject.find_address("") == {:error, expected_error}
     end
 
     test "when postal code has invalid format, returns invalid format error" do
-      expected_error = %Error{reason: "postal code in invalid format"}
+      expected_error = %Error{type: :some_type, message: "Some message", reason: "postal code in invalid format"}
 
       Enum.each(@invalid_postal_codes, fn postal_code ->
         assert Subject.find_address(postal_code) == {:error, expected_error}

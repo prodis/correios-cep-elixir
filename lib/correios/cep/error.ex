@@ -17,7 +17,7 @@ defmodule Correios.CEP.Error do
       iex> #{inspect(__MODULE__)}.new(:some_type, "Some message", "Catastrophic error!")
       %#{inspect(__MODULE__)}{type: :some_type, message: "Some message", reason: "Catastrophic error!"}
 
-      iex> #{inspect(__MODULE__)}.new(':some_type, 'Some message', "Catastrophic error!")
+      iex> #{inspect(__MODULE__)}.new(:some_type, 'Some message', "Catastrophic error!")
       %#{inspect(__MODULE__)}{type: :some_type, message: "Some message", reason: "Catastrophic error!"}
 
       iex> #{inspect(__MODULE__)}.new(:some_type, :some_message, "Catastrophic error!")
@@ -26,7 +26,7 @@ defmodule Correios.CEP.Error do
       iex> #{inspect(__MODULE__)}.new(:some_type, %{a: 123}, "Catastrophic error!")
       %#{inspect(__MODULE__)}{type: :some_type, message: "%{a: 123}", reason: "Catastrophic error!"}
 
-      iex> #{inspect(__MODULE__)}.new(':some_type, "Some message", 'Catastrophic error!')
+      iex> #{inspect(__MODULE__)}.new(:some_type, "Some message", 'Catastrophic error!')
       %#{inspect(__MODULE__)}{type: :some_type, message: "Some message", reason: "Catastrophic error!"}
 
       iex> #{inspect(__MODULE__)}.new(:some_type, "Some message", :some_error)
