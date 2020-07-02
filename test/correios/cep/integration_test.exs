@@ -17,6 +17,8 @@ defmodule Correios.CEP.IntegrationTest do
     }
 
     not_found_error = %Error{
+      type: :posta_code_not_found,
+      message: "Postal code not found",
       reason: "CEP NAO ENCONTRADO"
     }
 
