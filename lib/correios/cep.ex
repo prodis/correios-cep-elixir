@@ -97,7 +97,8 @@ defmodule Correios.CEP do
   def find_address(postal_code, options \\ [])
 
   def find_address("", _options) do
-    {:error, Error.new(:postal_code_required, "Postal code is required", "postal_code is required")}
+    {:error,
+     Error.new(:postal_code_required, "Postal code is required", "postal_code is required")}
   end
 
   def find_address(postal_code, options) when is_binary(postal_code) and is_list(options) do
@@ -106,7 +107,8 @@ defmodule Correios.CEP do
       |> client().request(options)
       |> parse()
     else
-      {:error, Error.new(:postal_code_invalid, "Postal code is invalid", "postal code in invalid format")}
+      {:error,
+       Error.new(:postal_code_invalid, "Postal code is invalid", "postal code in invalid format")}
     end
   end
 

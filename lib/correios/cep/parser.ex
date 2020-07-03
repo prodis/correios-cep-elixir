@@ -43,7 +43,9 @@ defmodule Correios.CEP.Parser do
   end
 
   @spec build_response(map() | nil) :: Address.t() | Error.t()
-  defp build_response(nil), do: Error.new(:postal_code_not_found, "Postal code not found", "CEP NAO ENCONTRADO")
+  defp build_response(nil),
+    do: Error.new(:postal_code_not_found, "Postal code not found", "CEP NAO ENCONTRADO")
+
   defp build_response(response) when is_map(response), do: Address.new(response)
 
   @doc """
