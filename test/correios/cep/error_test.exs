@@ -15,27 +15,14 @@ defmodule Correios.CEP.ErrorTest do
     {:ok, error: error}
   end
 
-  describe "new/1" do
+  describe "new/3" do
     test "creates a new error", %{error: expected_error} do
       assert Subject.new(:some_type, "Some message", "Catastrophic error!") == expected_error
     end
 
-    test "when the message is a charlist, converts the message to string", %{
-      error: expected_error
-    } do
-      assert Subject.new(:some_type, 'Some message', 'Catastrophic error!') == expected_error
-    end
-
-    test "when the message is an atom, converts the message to string", %{error: error} do
-      expected_error = %{error | message: "some_message"}
-
-      assert Subject.new(:some_type, :some_message, 'Catastrophic error!') == expected_error
-    end
-
-    test "when the message has another type, converts the message to string", %{error: error} do
-      expected_error = %{error | message: "{:a, 123}"}
-
-      assert Subject.new(:some_type, {:a, 123}, 'Catastrophic error!') == expected_error
+    test "creates a new error without reason", %{error: error} do
+      expected_error = %{error | reason: nil}
+      assert Subject.new(:some_type, "Some message") == expected_error
     end
 
     test "when the reason is a charlist, converts the reason to string", %{error: expected_error} do
@@ -55,15 +42,27 @@ defmodule Correios.CEP.ErrorTest do
     end
   end
 
-  describe "message/1" do
-    test "returns the message of the error", %{error: error} do
-      assert Subject.message(error) == "Some message"
-    end
-  end
+  describe "exception/1" do
+    setup do
+      error = %Subject{
+        type: nil,
+        message: "Some message",
+        reason: nil
+      }
 
-  describe "reason/1" do
-    test "returns the reason of the error", %{error: error} do
-      assert Subject.reason(error) == "Catastrophic error!"
+      {:ok, error: error}
+    end
+
+    test "returns the error with the given message", %{error: expected_error} do
+      assert Subject.exception("Some message") == expected_error
+    end
+
+    test "raises the correct error", %{error: expected_error} do
+      try do
+        raise Subject, "Some message"
+      rescue
+        error -> assert error == expected_error
+      end
     end
   end
 end
