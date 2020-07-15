@@ -28,7 +28,7 @@ defmodule Correios.CEP.ParserTest do
       expected_error = %Error{
         type: :postal_code_not_found,
         message: "Postal code not found",
-        reason: "CEP NAO ENCONTRADO"
+        reason: "Empty response"
       }
 
       assert Subject.parse_ok(response) == expected_error
@@ -36,8 +36,8 @@ defmodule Correios.CEP.ParserTest do
   end
 
   describe "parse_error/1" do
-    test "returns the parsed error" do
-      response = Fixture.response_body_error()
+    test "when the error is 'CEP NAO ENCONTRADO', returns postal code not found error" do
+      response = Fixture.response_body_cep_not_found_error()
 
       expected_error = %Error{
         type: :postal_code_not_found,
@@ -48,12 +48,26 @@ defmodule Correios.CEP.ParserTest do
       assert Subject.parse_error(response) == expected_error
     end
 
-    test "when error is an atom, returns the parsed error" do
-      assert Subject.parse_error(:timeout) == %Error{
-               type: :request_timeout,
-               message: "Request timeout",
-               reason: "timeout"
-             }
+    test "when the error is unknown, returns other error" do
+      response = Fixture.response_body_other_error()
+
+      expected_error = %Error{
+        type: :unknown,
+        message: "Unknown error",
+        reason: "ANY OTHER ERROR"
+      }
+
+      assert Subject.parse_error(response) == expected_error
+    end
+
+    test "when error is an atom, returns request error" do
+      expected_error = %Error{
+        type: :request_error,
+        message: "Request error",
+        reason: "timeout"
+      }
+
+      assert Subject.parse_error(:timeout) == expected_error
     end
   end
 end

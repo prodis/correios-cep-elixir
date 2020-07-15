@@ -28,7 +28,7 @@ defmodule Correios.CEP.ClientTest do
       bypass: bypass,
       options: options
     } do
-      response_body = Fixture.response_body_error()
+      response_body = Fixture.response_body_cep_not_found_error()
 
       assert_conn(bypass, 500, response_body)
       assert Subject.request("54250-610", options) == {:error, response_body}

@@ -32,7 +32,11 @@ defmodule Correios.CEP.Parser do
       %#{inspect(Address)}{ ... }
 
       iex> #{inspect(__MODULE__)}.parse_ok(response_body)
-      %#{inspect(Error)}{reason: "CEP NAO ENCONTRADO"}
+      %#{inspect(Error)}{
+        type: :postal_code_not_found,
+        message: "Postal code not found",
+        reason: "CEP NAO ENCONTRADO"
+      }
 
   """
   @spec parse_ok(String.t()) :: Address.t() | Error.t()
@@ -44,7 +48,7 @@ defmodule Correios.CEP.Parser do
 
   @spec build_response(map() | nil) :: Address.t() | Error.t()
   defp build_response(nil),
-    do: Error.new(:postal_code_not_found, "Postal code not found", "CEP NAO ENCONTRADO")
+    do: Error.new(:postal_code_not_found, "Postal code not found", "Empty response")
 
   defp build_response(response) when is_map(response), do: Address.new(response)
 
@@ -57,15 +61,25 @@ defmodule Correios.CEP.Parser do
       %#{inspect(Error)}{ ... }
 
       iex> #{inspect(__MODULE__)}.parse_error(:timeout)
-      %#{inspect(Error)}{type: :request_timeout, message: "Request timeout", reason: "timeout"}
+      %#{inspect(Error)}{
+        type: :request_error,
+        message: "Request error",
+        reason: "timeout"
+      }
 
   """
   @spec parse_error(any()) :: Error.t()
   def parse_error(response) when is_binary(response) do
-    reason = xpath(response, ~x"//faultstring/text()")
-
-    Error.new(:postal_code_not_found, "Postal code not found", reason)
+    response
+    |> xpath(~x"//faultstring/text()")
+    |> build_error()
   end
 
-  def parse_error(response), do: Error.new(:request_timeout, "Request timeout", response)
+  def parse_error(response), do: Error.new(:request_error, "Request error", response)
+
+  @spec build_error(charlist()) :: Error.t()
+  defp build_error('CEP NAO ENCONTRADO' = reason),
+    do: Error.new(:postal_code_not_found, "Postal code not found", reason)
+
+  defp build_error(reason), do: Error.new(:unknown, "Unknown error", reason)
 end
