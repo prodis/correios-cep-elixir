@@ -43,7 +43,9 @@ defmodule Correios.CEP.Parser do
   end
 
   @spec build_response(map() | nil) :: Address.t() | Error.t()
-  defp build_response(nil), do: Error.new("CEP NAO ENCONTRADO")
+  defp build_response(nil),
+    do: Error.new(:postal_code_not_found, "Postal code not found", "CEP NAO ENCONTRADO")
+
   defp build_response(response) when is_map(response), do: Address.new(response)
 
   @doc """
@@ -55,15 +57,15 @@ defmodule Correios.CEP.Parser do
       %#{inspect(Error)}{ ... }
 
       iex> #{inspect(__MODULE__)}.parse_error(:timeout)
-      %#{inspect(Error)}{reason: "timeout"}
+      %#{inspect(Error)}{type: :request_timeout, message: "Request timeout", reason: "timeout"}
 
   """
   @spec parse_error(any()) :: Error.t()
   def parse_error(response) when is_binary(response) do
-    response
-    |> xpath(~x"//faultstring/text()")
-    |> Error.new()
+    reason = xpath(response, ~x"//faultstring/text()")
+
+    Error.new(:postal_code_not_found, "Postal code not found", reason)
   end
 
-  def parse_error(response), do: Error.new(response)
+  def parse_error(response), do: Error.new(:request_timeout, "Request timeout", response)
 end
