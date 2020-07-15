@@ -84,22 +84,33 @@ defmodule Correios.CEP do
        }}
 
       iex> #{inspect(__MODULE__)}.find_address("00000-000")
-      {:error, %#{inspect(Error)}{type: :postal_code_not_found, message: "Postal code not found", reason: "CEP NAO ENCONTRADO"}}
+      {:error,
+        %#{inspect(Error)}{
+          type: :postal_code_not_found,
+          message: "Postal code not found",
+          reason: "CEP NAO ENCONTRADO"
+        }}
 
       iex> #{inspect(__MODULE__)}.find_address("1234567")
-      {:error, %#{inspect(Error)}{type: :postal_code_invalid, message: "Postal code is invalid", reason: "postal code in invalid format"}}
+      {:error,
+        %#{inspect(Error)}{
+          type: :postal_code_invalid,
+          message: "Postal code in invalid format"
+        }}
 
       iex> #{inspect(__MODULE__)}.find_address("")
-      {:error, %#{inspect(Error)}{type: :postal_code_required, message: "Postal code is required", reason: "postal_code is required"}}
+      {:error,
+        %#{inspect(Error)}{
+          type: :postal_code_required,
+          message: "Postal code is required"
+        }}
 
   """
   @spec find_address(String.t(), keyword()) :: t()
   def find_address(postal_code, options \\ [])
 
-  def find_address("", _options) do
-    {:error,
-     Error.new(:postal_code_required, "Postal code is required", "postal_code is required")}
-  end
+  def find_address("", _options),
+    do: {:error, Error.new(:postal_code_required, "Postal code is required")}
 
   def find_address(postal_code, options) when is_binary(postal_code) and is_list(options) do
     if valid_postal_code?(postal_code) do
@@ -107,8 +118,7 @@ defmodule Correios.CEP do
       |> client().request(options)
       |> parse()
     else
-      {:error,
-       Error.new(:postal_code_invalid, "Postal code is invalid", "postal code in invalid format")}
+      {:error, Error.new(:postal_code_invalid, "Postal code in invalid format")}
     end
   end
 
@@ -148,7 +158,7 @@ defmodule Correios.CEP do
       }
 
       iex> #{inspect(__MODULE__)}.find_address!("00000-000")
-      ** (#{inspect(Error)}) CEP NAO ENCONTRADO
+      ** (#{inspect(Error)}) Postal code not found
 
   """
   @spec find_address!(String.t(), keyword()) :: Address.t()
@@ -158,7 +168,7 @@ defmodule Correios.CEP do
     |> find_address(options)
     |> case do
       {:ok, response} -> response
-      {:error, error} -> raise(Error, Error.reason(error))
+      {:error, %Error{message: message}} -> raise Error, message
     end
   end
 end
