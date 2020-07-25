@@ -58,7 +58,7 @@ defmodule Correios.CEP.IntegrationTest do
               %Error{
                 type: :postal_code_not_found,
                 message: "Postal code not found"
-              }} = Subject.find_address("09999-999")
+              }} = Subject.find_address("09999-999", options)
     end
   end
 
@@ -86,7 +86,7 @@ defmodule Correios.CEP.IntegrationTest do
               %Error{
                 type: :postal_code_not_found,
                 message: "Postal code not found"
-              }} = Subject.find_address("09999-999")
+              }} = Subject.find_address("09999-999", options)
     end
   end
 end
