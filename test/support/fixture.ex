@@ -40,12 +40,26 @@ defmodule Correios.CEP.Test.Fixture do
       "</soap:Envelope>"
   end
 
-  def response_body_error do
+  def response_body_cep_not_found_error do
     "<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">" <>
       "<soap:Body>" <>
       "<soap:Fault>" <>
       "<faultcode>soap:Server</faultcode>" <>
       "<faultstring>CEP NAO ENCONTRADO</faultstring>" <>
+      "<detail>" <>
+      "<ns2:SigepClienteException xmlns:ns2=\"http://cliente.bean.master.sigep.bsb.correios.com.br/\">CEP NAO ENCONTRADO</ns2:SigepClienteException>" <>
+      "</detail>" <>
+      "</soap:Fault>" <>
+      "</soap:Body>" <>
+      "</soap:Envelope>"
+  end
+
+  def response_body_other_error do
+    "<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">" <>
+      "<soap:Body>" <>
+      "<soap:Fault>" <>
+      "<faultcode>soap:Server</faultcode>" <>
+      "<faultstring>ANY OTHER ERROR</faultstring>" <>
       "<detail>" <>
       "<ns2:SigepClienteException xmlns:ns2=\"http://cliente.bean.master.sigep.bsb.correios.com.br/\">CEP NAO ENCONTRADO</ns2:SigepClienteException>" <>
       "</detail>" <>
