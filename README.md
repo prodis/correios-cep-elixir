@@ -41,7 +41,12 @@ iex> Correios.CEP.find_address("54250610")
  }}
 
 iex> Correios.CEP.find_address("00000-000")
-{:error, %Correios.CEP.Error{reason: "CEP NAO ENCONTRADO"}}
+{:error,
+ %Correios.CEP.Error{
+   type: :postal_code_not_found,
+   message: "Postal code not found",
+   reason: "CEP NAO ENCONTRADO"
+ }}
 
 iex> Correios.CEP.find_address!("54250-610")
 %Correios.CEP.Address{
@@ -54,7 +59,7 @@ iex> Correios.CEP.find_address!("54250-610")
 }
 
 iex> Correios.CEP.find_address!("00000-000")
-** (Correios.CEP.Error) CEP NAO ENCONTRADO
+** (Correios.CEP.Error) Postal code not found
 ```
 
 ### Options

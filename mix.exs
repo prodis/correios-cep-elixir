@@ -72,7 +72,8 @@ defmodule Correios.CEP.MixProject do
     [
       main: "readme",
       extras: ~w(README.md CHANGELOG.md),
-      source_ref: "v#{@version}",
+      formatters: ["html"],
+      source_ref: @version,
       source_url: @repo,
       canonical: "http://hexdocs.pm/correios_cep"
     ]
