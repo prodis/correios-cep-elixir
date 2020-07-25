@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+
+## [0.7.0] - 2020-07-25
 ## Changed
 - Improve error responses. [Issue #18](https://github.com/prodis/correios-cep-elixir/issues/18)
 
@@ -52,7 +54,8 @@ will be deprecated in the next version. Part of the [Issue #17](https://github.c
 ### Added
 - Initial release.
 
-[Unreleased]: https://github.com/prodis/correios-cep-elixir/compare/0.6.0...master
+[Unreleased]: https://github.com/prodis/correios-cep-elixir/compare/0.7.0...master
+[0.7.0]: https://github.com/prodis/correios-cep-elixir/compare/0.6.0...0.7.0
 [0.6.0]: https://github.com/prodis/correios-cep-elixir/compare/0.5.1...0.6.0
 [0.5.1]: https://github.com/prodis/correios-cep-elixir/compare/0.5.0...0.5.1
 [0.5.0]: https://github.com/prodis/correios-cep-elixir/compare/0.4.0...0.5.0
