@@ -83,7 +83,7 @@ release: ## Bumps the version and creates a new tag
 	  printf "\t${DIM_COLOR}Updating version in ${MIX_FILE}${DEFAULT_COLOR}\n" && \
 	  perl -p -i -e "s/@version \"${VERSION}\"/@version \"$$NEW_VERSION\"/g" ${MIX_FILE} && \
 	  printf "\t${DIM_COLOR}Updating version in ${README_FILE}${DEFAULT_COLOR}\n" && \
-	  perl -p -i -e "s/{:wannabe_bool, \"~> ${VERSION}\"}/{:wannabe_bool, \"~> $$NEW_VERSION\"}/g" ${README_FILE} && \
+	  perl -p -i -e "s/{:correios_cep, \"~> ${VERSION}\"}/{:correios_cep, \"~> $$NEW_VERSION\"}/g" ${README_FILE} && \
 	  printf "\t${DIM_COLOR}Updating version in ${CHANGELOG_FILE}${DEFAULT_COLOR}\n" && \
 	  perl -p -i -e "s/## \[Unreleased\]/## \[Unreleased\]\\n\\n## \[$$NEW_VERSION\] - ${DATE}/g" ${CHANGELOG_FILE} && \
 	  perl -p -i -e "s/${REPO_COMPARE}\/${VERSION}...master/${REPO_COMPARE}\/$$NEW_VERSION...master/g" ${CHANGELOG_FILE} && \
