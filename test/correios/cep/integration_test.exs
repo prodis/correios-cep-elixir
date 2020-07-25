@@ -16,26 +16,22 @@ defmodule Correios.CEP.IntegrationTest do
       postal_code: "01311200"
     }
 
-    not_found_error = %Error{
-      type: :postal_code_not_found,
-      message: "Postal code not found",
-      reason: "CEP NAO ENCONTRADO"
-    }
-
-    {:ok, address: address, not_found_error: not_found_error}
+    {:ok, address: address}
   end
 
   describe "not using proxy" do
-    test "when the address is found, returns the address", %{
-      address: expected_address
-    } do
+    test "when the address is found, returns the address", %{address: expected_address} do
       assert Subject.find_address("01311-200") == {:ok, expected_address}
     end
 
-    test "when the address is not found, returns not found error", %{
-      not_found_error: expected_error
-    } do
-      assert Subject.find_address("09999-999") == {:error, expected_error}
+    test "when the address is not found, returns not found error" do
+      # Not asserting the error reason because Correios CEP API sometimes return an empty response
+      # for postal codes not found.
+      assert {:error,
+              %Error{
+                type: :postal_code_not_found,
+                message: "Postal code not found"
+              }} = Subject.find_address("09999-999")
     end
   end
 
@@ -55,11 +51,14 @@ defmodule Correios.CEP.IntegrationTest do
       assert Subject.find_address("01311-200", options) == {:ok, expected_address}
     end
 
-    test "when the address is not found, returns not found error", %{
-      not_found_error: expected_error,
-      options: options
-    } do
-      assert Subject.find_address("09999-999", options) == {:error, expected_error}
+    test "when the address is not found, returns not found error", %{options: options} do
+      # Not asserting the error reason because Correios CEP API sometimes return an empty response
+      # for postal codes not found.
+      assert {:error,
+              %Error{
+                type: :postal_code_not_found,
+                message: "Postal code not found"
+              }} = Subject.find_address("09999-999")
     end
   end
 
@@ -80,11 +79,14 @@ defmodule Correios.CEP.IntegrationTest do
       assert Subject.find_address("01311-200", options) == {:ok, expected_address}
     end
 
-    test "when the address is not found, returns not found error", %{
-      not_found_error: expected_error,
-      options: options
-    } do
-      assert Subject.find_address("09999-999", options) == {:error, expected_error}
+    test "when the address is not found, returns not found error", %{options: options} do
+      # Not asserting the error reason because Correios CEP API sometimes return an empty response
+      # for postal codes not found.
+      assert {:error,
+              %Error{
+                type: :postal_code_not_found,
+                message: "Postal code not found"
+              }} = Subject.find_address("09999-999")
     end
   end
 end
