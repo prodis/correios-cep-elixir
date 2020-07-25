@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+## Changed
+- Improve error responses. [Issue #18](https://github.com/prodis/correios-cep-elixir/issues/18)
 
 ## [0.6.0] - 2020-06-17
 ## Changed
